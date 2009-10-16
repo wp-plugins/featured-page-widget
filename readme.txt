@@ -45,13 +45,17 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 
 == Frequently Asked Questions ==
 
-= Can I set the test to use in the widget? =
+= Can I set the text to use in the widget? =
 
-Certainly. By default the plugin will create an excerpt from your page content in the length specified on the widget. Howewever, if you would prefer to write different lead in text, you can create a custom field with the name "featured-text". The plugin will then use the contents in the value for this custom field for use in the widget.
+Certainly. By default the plugin will create an excerpt from your page content in the length specified on the widget. Howewever, if you would prefer to write different lead-in text, you can create a custom field with the name "featured-text". The plugin will then use the contents in the value for this custom field for use in the widget.
 
 = Can I use a button or graphic for the post link? =
 
 By default, the plugin uses the text set in the settings for the link in the widget. If you want to use an image instead, you need to create a custom field for the featured page with the name "featued-link" and place the full URL of the image in the value field. Future versions will allow a default image to be used instead of default text.
+
+= How do I add an image to the widget? =
+
+To add an image, you need to edit the page itself, not the widget, and add a cutom field named "featured-image" and place the full URL to the image in the value field.
 
 = Where can I get support? =
 
