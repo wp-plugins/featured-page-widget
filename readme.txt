@@ -15,10 +15,11 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 * Allows multiple widgets each featuring a different page.
 * Use the page title or enter your own title for each widget.
 * Option to link the widget title to the page.
-* Uses an excerpt of your page or predefined text stored in the "featured-text" post meta field.
+* Uses an excerpt of your page or predefined text stored in the "featured-text" custom field.
 * Set a default excerpt length which you can override for each widget.
-* Adds a text link under the content, or uses the image in the "featured-link" post meta field to link to the page.
+* Adds a text link under the content, or uses the image in the "featured-link" custom field to link to the page.
 * Choose alignment of link text or image in widget.
+* Add an image using the "featured-image" custom field and set the alignment in the widget.
 
 == Installation ==
 
@@ -31,13 +32,26 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 
 = Changelog =
 
+0.6
+
+* Added basic instructions in the FAQ section and on the plugin settings page.
+* Added the ability to include an image in the widget using custom fields.
+* Image alignment and width added to default settings and to individual widget settings.
+* Image is linked to the post.
+
 0.5
 
 * First release
 
 == Frequently Asked Questions ==
 
-= None Yet =
+= Can I set the test to use in the widget? =
+
+Certainly. By default the plugin will create an excerpt from your page content in the length specified on the widget. Howewever, if you would prefer to write different lead in text, you can create a custom field with the name "featured-text". The plugin will then use the contents in the value for this custom field for use in the widget.
+
+= Can I use a button or graphic for the post link? =
+
+By default, the plugin uses the text set in the settings for the link in the widget. If you want to use an image instead, you need to create a custom field for the featured page with the name "featued-link" and place the full URL of the image in the value field. Future versions will allow a default image to be used instead of default text.
 
 = Where can I get support? =
 

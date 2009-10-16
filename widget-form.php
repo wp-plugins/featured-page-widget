@@ -6,12 +6,6 @@
 	<input class="widefat" id="<?php print $this->get_field_id('title'); ?>" name="<?php print $this->get_field_name('title'); ?>" type="text" value="<?php print $title; ?>" />
 </p>
 <p>
-	<label for="<?php print $this->get_field_id('linktitle'); ?>">
-	<?php _e('Link Title to Page:'); ?>
-	</label>
-	<input name="<?php print $this->get_field_name('linktitle'); ?>" id="<?php print $this->get_field_id('linktitle'); ?>" type="checkbox" value="1" <?php if ($linktitle) print "checked"; ?> />
-</p>
-<p>
 	<label for="<?php print $this->get_field_id('page'); ?>">
 	<?php _e('Featured Page:'); ?>
 	</label>
@@ -24,6 +18,13 @@
 	<?php _e('Excerpt Length:<br /><small>If no excerpt specified</small>'); ?>
 	</label>
 	<input class="widefat" id="<?php print $this->get_field_id('length'); ?>" name="<?php print $this->get_field_name('length'); ?>" type="text" value="<?php print $length; ?>" />
+</p>
+<h3><?php _e('Page Link'); ?></h3>
+<p>
+	<label for="<?php print $this->get_field_id('linktitle'); ?>">
+	<?php _e('Link Title to Page:'); ?>
+	</label>
+	<input name="<?php print $this->get_field_name('linktitle'); ?>" id="<?php print $this->get_field_id('linktitle'); ?>" type="checkbox" value="1" <?php if ($linktitle) print "checked"; ?> />
 </p>
 <p>
 	<label for="<?php print $this->get_field_id('target'); ?>">
@@ -44,4 +45,21 @@
 		<option value="center" <?php if ($linkalign == 'center') print 'selected'; ?> >Center</option>
 		<option value="right" <?php if ($linkalign == 'right') print 'selected'; ?> >Right</option>
 	</select>
+</p>
+<h3><?php _e('Page Image (if present)'); ?></h3>
+<p>
+	<label for="<?php print $this->get_field_id('imagealign'); ?>">
+	<?php _e('Image Alignment:'); ?>
+	</label>
+	<select name="<?php print $this->get_field_name('imagealign'); ?>" id="<?php print $this->get_field_id('imagealign'); ?>">
+		<option value="left" <?php if ($imagealign == 'left') print 'selected'; ?> >Left</option>
+		<option value="center" <?php if ($imagealign == 'center') print 'selected'; ?> >Center</option>
+		<option value="right" <?php if ($imagealign == 'right') print 'selected'; ?> >Right</option>
+	</select>
+</p>
+<p>
+	<label for="<?php print $this->get_field_id('imagewidth'); ?>">
+	<?php _e('Image Width (pixels):'); ?>
+	</label>
+	<input class="widefat" id="<?php print $this->get_field_id('imagewidth'); ?>" name="<?php print $this->get_field_name('imagewidth'); ?>" type="text" value="<?php print $imagewidth; ?>" />
 </p>

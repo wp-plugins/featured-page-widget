@@ -4,7 +4,7 @@ Plugin Name: Featured Page Widget
 Plugin URI: http://wordpress.grandslambert.com/plugins/featured-page-widget.html
 Description: Feature pages on your sidebar including an excerpt and either a text or image link to the page.
 Author: GrandSlambert
-Version: 0.5
+Version: 0.6
 Author: GrandSlambert
 Author URI: http://www.grandslambert.com/
 */
@@ -12,7 +12,7 @@ Author URI: http://www.grandslambert.com/
 /* Class Declaration */
 class FeaturedPageWidget extends WP_Widget
 {
-	var $version	= '0.5';
+	var $version	= '0.6';
 	
 	// Options page name
 	var $optionsName	= 'featured-page-widget_options';
@@ -24,6 +24,8 @@ class FeaturedPageWidget extends WP_Widget
 	var $defaultLinkText		= 'Read More &raquo;';
 	var $defaultTarget		= 'None';
 	var $defaultLinkAlign	= 'center';
+	var $defaultImageAlign	= 'right';
+	var $defaultImageWidth	= '100';
 	
 	/**
 	 * Constructor
@@ -48,8 +50,15 @@ class FeaturedPageWidget extends WP_Widget
 		if (!$this->defaultTarget = get_option('featured_page_widget_target') )
 			$this->defaultTarget = 'None';
 
-		if (!$this->defaultLinkAlign = get_option('featured_page_widget_align') )
-			$this->defaultLinkAlign = 'center';
+		if (!$this->defaultLinkAlign = get_option('featured_page_widget_link_align') )
+			if (!$this->defaultLinkAlign = get_option('featured_page_widget_align') )
+				$this->defaultLinkAlign = 'center';
+
+		if (!$this->defaultImageAlign = get_option('featured_page_widget_image_align') )
+			$this->defaultImageAlign = 'right';
+
+		if (!$this->defaultImageWidth = get_option('featured_page_widget_image_width') )
+			$this->defaultImageWidth = '100';
 	
 		// Add aministration page.
 		add_action('admin_menu', array(&$this, 'addAdminPages'));
@@ -69,7 +78,9 @@ class FeaturedPageWidget extends WP_Widget
 				'featured_page_widget_link_title',
 				'featured_page_widget_link_text',
 				'featured_page_widget_target',
-				'featured_page_widget_align',
+				'featured_page_widget_link_align',
+				'featured_page_widget_image_align',
+				'featured_page_widget_image_width',
 				
 			));
 			$whitelist = array_merge($whitelist, $option_array);
@@ -152,12 +163,20 @@ class FeaturedPageWidget extends WP_Widget
 
 		if (!$linkAlign = $instance['linkalign'])
 			$linkAlign = $this->defaultLinkAlign;
+
+		if (!$imageAlign = $instance['imagealign'])
+			$imageAlign = $this->defaultImageAlign;
+
+		if (!$imageWidth = $instance['imagewidth'])
+			$imageWidth = $this->defaultImageWidth;
 		
 		$title = apply_filters('widget_title', $title );
-		$postimage = get_post_meta($page->ID, 'featured-image', true);
-
+		
 		if (!$content = get_post_meta($page->ID, 'featured-text', true) )
 			$content = $this->trim_excerpt($page->post_content, $length);
+		
+		if ($postimage = get_post_meta($page->ID, 'featured-image', true) )	
+			$content = $this->makelink($page->ID, '<img src="' . $postimage . '" width="' . $imageWidth . '" border="0" class="align' . $imageAlign .'" /></a>', $linkTarget) . $content;
 			
 		if ($linkImage = get_post_meta($page->ID, 'featured-link', true) )
 			$link = '<img src="' . $linkImage . '" border="0" />';
@@ -237,6 +256,12 @@ class FeaturedPageWidget extends WP_Widget
 		if (!$linkalign = esc_attr($instance['linkalign']) )
 			$linkalign = $this->defaultLinkAlign;
 
+		if (!$imagealign = $instance['imagealign'])
+			$imagealign = $this->defaultImageAlign;
+
+		if (!$imagewidth = $instance['imagewidth'])
+			$imagewidth = $this->defaultImageWidth;
+
 		include( $this->pluginPath . '/widget-form.php');
 	}
 	
@@ -258,6 +283,14 @@ class FeaturedPageWidget extends WP_Widget
 		}
 		
 		return $output;
+	}
+
+	/**
+	 * Show the version number
+	 */
+	function showVersion()
+	{
+		return $this->version;
 	}
 }
 
