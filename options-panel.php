@@ -112,8 +112,8 @@
 	<div class="postbox" style="width:49%; height: 175px; float:right;">
 		<h3 class="handl" style="margin:0; padding:3px;cursor:default;">Donate</h3>
 		<div style="padding:8px">
-			<p> If you find this plugin useful, please consider supporting our work and the development of  other great <a href="http://wordpress.grandslambert.com/plugins.html" target="_blank">plugins</a>. Donate a few bucks and see what else we can come up with!</p>
-			<p style="text-align: center;"><a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=6898571"><img width="122" height="47" alt="paypal_btn_donateCC_LG" src="http://wordpress.grandslambert.com/wp-content/uploads/2009/07/paypal_btn_donateCC_LG.gif" title="paypal_btn_donateCC_LG" class="aligncenter size-full wp-image-174"/></a></p>
+			<p> If you find this plugin useful, please consider supporting our work and the development of  other great <a href="http://wordpress.grandslambert.com/plugins.html" target="_blank">plugins</a>. <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=8971824" target="_blank">Donate</a> a few bucks and see what else we can come up with!</p>
+			<p style="text-align: center;"><a target="_blank" href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=8971824"><img width="122" height="47" alt="paypal_btn_donateCC_LG" src="http://wordpress.grandslambert.com/wp-content/uploads/2009/07/paypal_btn_donateCC_LG.gif" title="paypal_btn_donateCC_LG" class="aligncenter size-full wp-image-174"/></a></p>
 		</div>
 	</div>
 </div>
