@@ -12,6 +12,8 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 
 Allows you to feature pages on your sidebar using an excerpt of the page and a text or image link to the page.
 
+* <strong>NEW</strong>: Set up a random featured page by selecting multiple pages on the widget form.
+* <strong>NEW</strong>: Added option to hide the widget if only one page is selected and user is viewing that page.
 * Allows multiple widgets each featuring a different page.
 * Use the page title or enter your own title for each widget.
 * Option to link the widget title to the page.
@@ -31,6 +33,12 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 == Other Notes ==
 
 = Changelog =
+
+0.7
+
+* Added a "Random" option by selecting multiple pages on the widget form. Will retain old settings without any updates.
+* Added option to hide the widget if only one page is selected and user is viewing that page.
+* Cleaned up some extra code left during debugging.
 
 0.6
 
@@ -56,6 +64,10 @@ By default, the plugin uses the text set in the settings for the link in the wid
 = How do I add an image to the widget? =
 
 To add an image, you need to edit the page itself, not the widget, and add a cutom field named "featured-image" and place the full URL to the image in the value field.
+
+= Can I have the widget feature a random page? =
+
+As of version 0.7 you can now select multiple pages on the widget form nd the widget will select a random page to feature with each page load. The widget will never display the current page as the featured page unless only one page is featured.
 
 = Where can I get support? =
 

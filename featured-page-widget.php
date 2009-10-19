@@ -4,7 +4,7 @@ Plugin Name: Featured Page Widget
 Plugin URI: http://wordpress.grandslambert.com/plugins/featured-page-widget.html
 Description: Feature pages on your sidebar including an excerpt and either a text or image link to the page.
 Author: GrandSlambert
-Version: 0.6
+Version: 0.7
 Author: GrandSlambert
 Author URI: http://www.grandslambert.com/
 */
@@ -12,7 +12,7 @@ Author URI: http://www.grandslambert.com/
 /* Class Declaration */
 class FeaturedPageWidget extends WP_Widget
 {
-	var $version	= '0.6';
+	var $version	= '0.7';
 	
 	// Options page name
 	var $optionsName	= 'featured-page-widget_options';
@@ -21,6 +21,7 @@ class FeaturedPageWidget extends WP_Widget
 	// Settings
 	var $defaultLength		= 55;
 	var $defaultLinkTitle	= false;
+	var $defaultHideWidget	= false;
 	var $defaultLinkText		= 'Read More &raquo;';
 	var $defaultTarget		= 'None';
 	var $defaultLinkAlign	= 'center';
@@ -43,6 +44,9 @@ class FeaturedPageWidget extends WP_Widget
 
 		if (!$this->defaultLinkTitle = get_option('featured_page_widget_link_title') )
 			$this->defaultLinkTitle = false;
+
+		if (!$this->defaultHideWidget = get_option('featured_page_widget_hide_widget') )
+			$this->defaultHideWidget = false;
 
 		if (!$this->defaultLinkText = get_option('featured_page_widget_link_text') )
 			$this->defaultLinkText = 'Read More &raquo;';
@@ -76,6 +80,7 @@ class FeaturedPageWidget extends WP_Widget
 			$option_array = array('FeaturedPageWidget' => array(
 				'featured_page_widget_length',
 				'featured_page_widget_link_title',
+				'featured_page_widget_hide_widget',
 				'featured_page_widget_link_text',
 				'featured_page_widget_target',
 				'featured_page_widget_link_align',
@@ -138,16 +143,37 @@ class FeaturedPageWidget extends WP_Widget
 	 */
 	function widget($args, $instance) 
 	{
-
+		global $post;
+		
 		if ( isset($instance['error']) && $instance['error'] )
 			return;
+			
 
 		extract($args, EXTR_SKIP);
 		
-		if (!$page = $instance['page'])
+		if (!$pages = $instance['page'])
 			return NULL;
+			
+		if ( !is_array($pages) )
+		{
+			$pages = array($pages);
+		}
 		
-		$page = get_page($page);
+		$hide = $instance['hidewidget'];
+		
+		if (count($pages) > 1)
+		{
+			do 
+			{
+				$thePage = $pages[rand(0,count($pages)-1)];
+			} while ($thePage == $post->ID);
+		}
+		elseif ($hide and $pages[0] == $post->ID)
+			return;
+		else
+			$thePage = $pages[0];
+			
+		$page = get_page($thePage);
 
 		if (!$title = $instance['title'])
 			$title = $page->post_title;
@@ -242,10 +268,13 @@ class FeaturedPageWidget extends WP_Widget
 	function form($instance) 
 	{
 		$title 	= esc_attr($instance['title']);
-		$page 	= esc_attr($instance['page']);
+		$page 	= $instance['page'];
 		
 		if (!$linktitle = esc_attr($instance['linktitle']) )
 			$linktitle = $this->defaultLinkTitle;
+			
+		if (!$hidewidget = esc_attr($instance['hidewidget']) )
+			$hidewidget = $this->defaultHideWidget;
 		
 		if (!$length = esc_attr($instance['length']) )
 			$length = $this->defaultLength;
@@ -270,15 +299,17 @@ class FeaturedPageWidget extends WP_Widget
 	 */
 	function get_pages($selected = NULL)
 	{
+		if ( !is_array($selected) )
+			$selected = array($selected);
+		
 		$pages = get_pages();
 		
-		print_r($pages);
 		$output = '';
 		
 		foreach ($pages as $page)
 		{
 			$output.= '<option value="' . $page->ID . '"';
-			if ($page->ID == $selected) $output.= ' selected';
+			if ( in_array($page->ID, $selected) ) $output.= ' selected';
 			$output.= '>' . $page->post_title . "</option>\n";
 		}
 		

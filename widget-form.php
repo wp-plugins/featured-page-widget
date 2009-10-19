@@ -1,4 +1,3 @@
-
 <p>
 	<label for="<?php print $this->get_field_id('title'); ?>">
 	<?php _e('Widget Title:<br /><small>Leave blank to use page title</small>'); ?>
@@ -7,11 +6,18 @@
 </p>
 <p>
 	<label for="<?php print $this->get_field_id('page'); ?>">
-	<?php _e('Featured Page:'); ?>
+	<?php _e('Featured Page<br /><small>(CTRL-Click to select multiple)</small>:'); ?>
 	</label>
-	<select name="<?php print $this->get_field_name('page'); ?>" id="<?php print $this->get_field_id('page'); ?>">
+	<select name="<?php print $this->get_field_name('page'); ?>[]" size="1" style="height:100px;" multiple="multiple" id="<?php print $this->get_field_id('page'); ?>">
 		<?php print $this->get_pages($page); ?>
 	</select>
+</p>
+<p>
+	<label for="<?php print $this->get_field_id('hidewidget'); ?>">
+	<?php _e('Hide on selected page:'); ?>
+	</label>
+	<input name="<?php print $this->get_field_name('hidewidget'); ?>" id="<?php print $this->get_field_id('hidewidget'); ?>" type="checkbox" value="1" <?php if ($hidewidget) print "checked"; ?> />
+	<br /><small><?php _e('If only one page is selected, otherwise show any other randomly selected page.'); ?></small>
 </p>
 <p>
 	<label for="<?php print $this->get_field_id('length'); ?>">

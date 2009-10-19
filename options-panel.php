@@ -17,6 +17,10 @@
 						<th scope="row"><?php _e('Default Content Length'); ?></th>
 						<td><input name="featured_page_widget_length" id="featured_page_widget_length" type="text" value="<?php echo $this->defaultLength; ?>" /></td>
 					</tr>
+					<tr align="top">
+						<th scope="row"><?php _e('Hide Widget on Selected Page<br /><small>If only one page is selected</small>'); ?></th>
+						<td><input name="featured_page_widget_hide_widget" id="featured_page_widget_hide_widget" type="checkbox" value="1" <?php if ($this->defaultHideWidget) print "checked"; ?> /></td>
+					</tr>
 				</table>
 			</div>
 			<h3 class="handl" style="margin:0;padding:3px;cursor:default;">
@@ -75,7 +79,7 @@
 				<?php if (function_exists('wpmu_create_blog')) : ?>
 				<input type="hidden" name="option_page" value="featured_page_options" />
 				<?php  else : ?>
-				<input type="hidden" name="page_options" value="featured_page_widget_length,featured_page_widget_link_title,featured_page_widget_link_text,featured_page_widget_target,featured_page_widget_link_align,featured_page_widget_image_align,featured_page_widget_image_width" />
+				<input type="hidden" name="page_options" value="featured_page_widget_length,featured_page_widget_link_title,featured_page_widget_hide_widget,featured_page_widget_link_text,featured_page_widget_target,featured_page_widget_link_align,featured_page_widget_image_align,featured_page_widget_image_width" />
 				<?php endif; ?>
 				<p class"submit" align="center">
 					<input type="submit" name="Submit" value="<?php _e('Save Changes'); ?>" />
