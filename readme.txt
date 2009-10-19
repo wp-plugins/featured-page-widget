@@ -55,7 +55,7 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 
 = Can I set the text to use in the widget? =
 
-Certainly. By default the plugin will create an excerpt from your page content in the length specified on the widget. Howewever, if you would prefer to write different lead-in text, you can create a custom field with the name "featured-text". The plugin will then use the contents in the value for this custom field for use in the widget.
+Certainly. By default the plugin will create an excerpt from your page content in the length specified on the widget. However, if you would prefer to write different lead-in text, you can create a custom field with the name "featured-text". The plugin will then use the contents in the value for this custom field for use in the widget.
 
 = Can I use a button or graphic for the post link? =
 
