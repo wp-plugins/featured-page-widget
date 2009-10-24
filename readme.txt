@@ -30,9 +30,7 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 3. Configure the default settings on the settings panel.
 4. Add widgets to your sidebar.
 
-== Other Notes ==
-
-= Changelog =
+== Changelog ==
 
 0.7
 
