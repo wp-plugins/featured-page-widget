@@ -1,6 +1,6 @@
 === Featured Page Widget ===
 Contributors: GrandSlambert
-Donate link: http://wordpress.grandslambert.com/contact/donate.html
+Donate link: http://wordpress.grandslambert.com/plugins/featured-page-widget/donate.html
 Tags: widget, page, feature, buttons, links, excerpt
 Requires at least: 2.8
 Tested up to: 2.8.4
