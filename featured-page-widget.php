@@ -6,7 +6,7 @@ Description: Feature pages on your sidebar including an excerpt and either a tex
 Author: GrandSlambert
 Version: 1.1
 Author: GrandSlambert
-Author URI: http://www.grandslambert.com/
+Author URI: http://wordpress.grandslambert.com/
 
 
 **************************************************************************
