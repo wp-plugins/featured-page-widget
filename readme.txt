@@ -3,7 +3,7 @@ Contributors: GrandSlambert
 Donate link: http://wordpress.grandslambert.com/plugins/featured-page-widget/donate.html
 Tags: widget, page, feature, buttons, links, excerpt
 Requires at least: 2.8
-Tested up to: 2.8.4
+Tested up to: 2.9
 Stable tag: trunk
 
 Allows you to feature pages on your sidebar using an excerpt of the page and a text or image link to the page.
