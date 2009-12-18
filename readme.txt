@@ -32,6 +32,10 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 
 == Changelog ==
 
+1.1 - December 18th, 2009
+
+* Code cleanup and optimization.
+
 1.0 - December 17th, 2009
 
 * Fixed a bug to allow the plugin to work in Wordpress MU.
@@ -54,6 +58,9 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 * First release
 
 == Upgrade Notice ==
+
+= 1.1 =
+Not a required upgrade, but more optimized code.
 
 = 1.0 - Decmeber 17th, 2009 =
 This version runs on Wordpress MU, no changes for standalone version.
