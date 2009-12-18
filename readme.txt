@@ -32,22 +32,31 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 
 == Changelog ==
 
-0.7
+1.0 - December 17th, 2009
+
+* Fixed a bug to allow the plugin to work in Wordpress MU.
+
+0.7 - October 19th, 2009
 
 * Added a "Random" option by selecting multiple pages on the widget form. Will retain old settings without any updates.
 * Added option to hide the widget if only one page is selected and user is viewing that page.
 * Cleaned up some extra code left during debugging.
 
-0.6
+0.6 - October 16th, 2009
 
 * Added basic instructions in the FAQ section and on the plugin settings page.
 * Added the ability to include an image in the widget using custom fields.
 * Image alignment and width added to default settings and to individual widget settings.
 * Image is linked to the post.
 
-0.5
+0.5 - October 15th, 2009
 
 * First release
+
+== Upgrade Notice ==
+
+= 1.0 - Decmeber 17th, 2009 =
+This version runs on Wordpress MU, no changes for standalone version.
 
 == Frequently Asked Questions ==
 
