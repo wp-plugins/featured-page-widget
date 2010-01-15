@@ -12,8 +12,9 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 
 Allows you to feature pages on your sidebar using an excerpt of the page and a text or image link to the page.
 
-* <strong>NEW</strong>: Set up a random featured page by selecting multiple pages on the widget form.
-* <strong>NEW</strong>: Added option to hide the widget if only one page is selected and user is viewing that page.
+* <strong>NEW</strong>: Added an option to set what tags are allowed in excerpts.
+* Set up a random featured page by selecting multiple pages on the widget form.
+* Added option to hide the widget if only one page is selected and user is viewing that page.
 * Allows multiple widgets each featuring a different page.
 * Use the page title or enter your own title for each widget.
 * Option to link the widget title to the page.
