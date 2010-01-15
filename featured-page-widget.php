@@ -4,7 +4,7 @@ Plugin Name: Featured Page Widget
 Plugin URI: http://wordpress.grandslambert.com/plugins/featured-page-widget.html
 Description: Feature pages on your sidebar including an excerpt and either a text or image link to the page.
 Author: GrandSlambert
-Version: 1.1
+Version: 1.2
 Author: GrandSlambert
 Author URI: http://wordpress.grandslambert.com/
 
@@ -32,22 +32,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Class Declaration */
 class FeaturedPageWidget extends WP_Widget {
-    var $version	= '1.1';
+    var $version	= '1.2';
 
     /* Options page name */
     var $optionsName	= 'featured-page-widget-options';
-    var $menuName	= 'featured-page-widget-settings';
-    var $pluginName     = 'Featured Page Widget';
+    var $menuName	= 'featured-pages-settings';
+    var $pluginName     = 'Featured Pages';
     var $options        = array();
 
     /**
      * Method constructor
      */
     function FeaturedPageWidget() {
-        $widget_ops = array('description' => __('Feature a page on your sidebar. By GrandSlambert.') );
-        $this->WP_Widget('featured_page_widget', __($this->pluginName), $widget_ops);
+        $langDir = dirname( plugin_basename(__FILE__) ) . '/lang';
+        load_plugin_textdomain( 'featured-page-widget', false, $langDir, $langDir );
+
+        /* translators: This is the description shown on the Widgets page. */
+        $widget_ops = array('description' => __('Feature a page on your sidebar. By GrandSlambert.', 'featured-page-widget') );
+        /* translators: This is the title of the widget on the Widgets page. */
+        $this->WP_Widget('featured_page_widget', __($this->pluginName, 'featured-page-widget'), $widget_ops);
 
         $this->pluginPath = WP_CONTENT_DIR . '/plugins/' . plugin_basename(dirname(__FILE__));
+        /* translators: This is the title of the plugin as used throughout the plugin. */
+        $this->pluginName = __('Featured Pages');
         $this->loadSettings();
 
         // Add aministration page.
@@ -63,23 +70,39 @@ class FeaturedPageWidget extends WP_Widget {
         $this->options = get_option($this->optionsName);
 
         /* Get defaults for those items not defauled to false. */
-        if (!$this->options['length'])
+        if (!$this->options['length']) {
             $this->options['length'] = 55;
+        }
 
-        if (!$this->options['link_text'])
+        if (!$this->options['link_text']) {
             $this->options['link_text'] = 'Read More &raquo;';
+        }
 
-        if (!$this->options['target'])
+        if (!$this->options['target']) {
             $this->options['target'] = 'None';
+        }
 
-        if (!$this->options['link_align'])
+        if (!$this->options['link_align']) {
             $this->options['link_align'] = 'center';
+        }
 
-        if (!$this->options['image_align'])
+        if (!$this->options['image_align']) {
             $this->options['image_align'] = 'right';
+        }
 
-        if (!$this->options['image_width'])
+        if (!$this->options['image_width']) {
             $this->options['image_width'] = 100;
+        }
+
+        if (!$this->options['allowed-tags']) {
+            $this->options['allowed-tags'] = 'p';
+        }
+
+        $tags = explode(',', $this->options['allowed-tags']);
+
+        foreach ($tags as $tag) {
+            $this->options['allowed-tags-formatted'].= '<'. $tag . '>';
+        }
     }
 
     /**
@@ -129,7 +152,8 @@ class FeaturedPageWidget extends WP_Widget {
         }
 
         if ($file == $this_plugin) {
-            $settings_link = '<a href="' . get_option('siteurl') . '/wp-admin/options-general.php?page=' . $this->menuName . '">' . __('Settings') . '</a>';
+            /* translators: This is the link displayed on the Plugins page to the settings page for the plugin. */
+            $settings_link = '<a href="' . get_option('siteurl') . '/wp-admin/options-general.php?page=' . $this->menuName . '">' . __('Settings', 'featured-page-widget') . '</a>';
             array_unshift($links, $settings_link);
         }
 
@@ -153,14 +177,15 @@ class FeaturedPageWidget extends WP_Widget {
     function widget($args, $instance) {
         global $post;
 
-        if ( isset($instance['error']) && $instance['error'] )
+        if ( isset($instance['error']) && $instance['error'] ) {
             return;
-
+        }
 
         extract($args, EXTR_SKIP);
 
-        if (!$pages = $instance['page'])
+        if (!$pages = $instance['page']) {
             return NULL;
+        }
 
         if ( !is_array($pages) ) {
             $pages = array($pages);
@@ -172,47 +197,57 @@ class FeaturedPageWidget extends WP_Widget {
             do {
                 $thePage = $pages[rand(0,count($pages)-1)];
             } while ($thePage == $post->ID);
-        }
-        elseif ($hide and $pages[0] == $post->ID)
+        } elseif ($hide and $pages[0] == $post->ID) {
             return;
-        else
+        } else {
             $thePage = $pages[0];
+        }
 
         $page = get_page($thePage);
 
-        if (!$title = $instance['title'])
+        if (!$title = $instance['title']) {
             $title = $page->post_title;
+        }
 
-        if (!$linkTitle = $instance['linktitle'])
+        if (!$linkTitle = $instance['linktitle']) {
             $linkTitle = $this->options['link_title'];
+        }
 
-        if (!$length = $instance['length'])
+        if (!$length = $instance['length']) {
             $length = $this->options['length'];
+        }
 
-        if (!$linkTarget = $instance['target'])
+        if (!$linkTarget = $instance['target']) {
             $linkTarget = $this->defaultLinkTarget;
+        }
 
-        if (!$linkAlign = $instance['linkalign'])
+        if (!$linkAlign = $instance['linkalign']) {
             $linkAlign = $this->options['link_align'];
+        }
 
-        if (!$imageAlign = $instance['imagealign'])
+        if (!$imageAlign = $instance['imagealign']) {
             $imageAlign = $this->options['image_align'];
+        }
 
-        if (!$imageWidth = $instance['imagewidth'])
+        if (!$imageWidth = $instance['imagewidth']) {
             $imageWidth = $this->options['image_width'];
+        }
 
         $title = apply_filters('widget_title', $title );
 
-        if (!$content = get_post_meta($page->ID, 'featured-text', true) )
+        if (!$content = get_post_meta($page->ID, 'featured-text', true) ) {
             $content = $this->trim_excerpt($page->post_content, $length);
+        }
 
-        if ($postimage = get_post_meta($page->ID, 'featured-image', true) )
+        if ($postimage = get_post_meta($page->ID, 'featured-image', true) ) {
             $content = $this->makelink($page->ID, '<img src="' . $postimage . '" width="' . $imageWidth . '" border="0" class="align' . $imageAlign .'" /></a>', $linkTarget) . $content;
+        }
 
-        if ($linkImage = get_post_meta($page->ID, 'featured-link', true) )
+        if ($linkImage = get_post_meta($page->ID, 'featured-link', true) ) {
             $link = '<img src="' . $linkImage . '" border="0" />';
-        else
+        } else {
             $link = $this->options['link_text'];
+        }
 
         $content.= '<p align="' . $linkAlign . '">' . $this->makelink($page->ID, $link, $linkTarget) . '</p>';
 
@@ -247,13 +282,18 @@ class FeaturedPageWidget extends WP_Widget {
 
         $text = apply_filters('the_content', $text);
         $text = str_replace(']]>', ']]&gt;', $text);
-        $text = strip_tags($text, '<p>');
+        $text = strip_tags($text, $this->options['allowed-tags-formatted']);
         $text = preg_replace('@<script[^>]*?>.*?</script>@si', '', $text);
         $words = explode(' ', $text, $length + 1);
         if (count($words)> $excerpt_length) {
             array_pop($words);
             array_push($words, '[...]');
             $text = implode(' ', $words);
+        }
+
+        $tags = explode(',', $this->options['allowed-tags']);
+        foreach ($tags as $tag) {
+            $text.= '</' . $tag . '>';
         }
 
         return $text;
@@ -278,26 +318,23 @@ class FeaturedPageWidget extends WP_Widget {
         $title 	= esc_attr($instance['title']);
         $page 	= $instance['page'];
 
-        if (!$linktitle = esc_attr($instance['linktitle']) )
+        if (!$instance) {
             $linktitle = $this->options['link_title'];
-
-        if (!$hidewidget = esc_attr($instance['hidewidget']) )
             $hidewidget = $this->options['hide_widget'];
-
-        if (!$length = esc_attr($instance['length']) )
             $length = $this->options['length'];
-
-        if (!$linktarget = esc_attr($instance['target']) )
             $linktarget = $this->options['target'];
-
-        if (!$linkalign = esc_attr($instance['linkalign']) )
             $linkalign = $this->options['link_align'];
-
-        if (!$imagealign = $instance['imagealign'])
             $imagealign = $this->options['image_align'];
-
-        if (!$imagewidth = $instance['imagewidth'])
             $imagewidth = $this->options['image_width'];
+        } else {
+            $linktitle = esc_attr($instance['linktitle']);
+            $hidewidget = esc_attr($instance['hidewidget']);
+            $length = esc_attr($instance['length']);
+            $linktarget = esc_attr($instance['target']);
+            $linkalign = esc_attr($instance['linkalign']);
+            $imagealign = $instance['imagealign'];
+            $imagewidth = $instance['imagewidth'];
+        }
 
         include( $this->pluginPath . '/widget-form.php');
     }
@@ -305,9 +342,11 @@ class FeaturedPageWidget extends WP_Widget {
     /**
      * Get list of pages as select options
      */
-    function get_pages($selected = NULL) {
-        if ( !is_array($selected) )
+    function get_pages($selected = NULL, $name = 'page') {
+
+        if ( !is_array($selected) ){
             $selected = array($selected);
+        }
 
         $pages = get_pages();
 
@@ -315,7 +354,9 @@ class FeaturedPageWidget extends WP_Widget {
 
         foreach ($pages as $page) {
             $output.= '<option value="' . $page->ID . '"';
-            if ( in_array($page->ID, $selected) ) $output.= ' selected';
+            if ( in_array($page->ID, $selected) ) {
+                $output.= ' selected';
+            }
             $output.= '>' . $page->post_title . "</option>\n";
         }
 

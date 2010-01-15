@@ -1,0 +1,323 @@
+# Translation of the WordPress plugin Featured Page Widget 1.2 by GrandSlambert.
+# Copyright (C) 2010 GrandSlambert
+# This file is distributed under the same license as the Featured Page Widget package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Featured Page Widget 1.2\n"
+"Report-Msgid-Bugs-To: http://wordpress.org/tag/featured-page-widget\n"
+"POT-Creation-Date: 2010-01-15 13:11-0600\n"
+"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. translators: This is the description shown on the Widgets page.
+#: featured-page-widget.php:51
+msgid "Feature a page on your sidebar. By GrandSlambert."
+msgstr ""
+
+#. translators: This is the title of the plugin as used throughout the plugin.
+#: featured-page-widget.php:57
+msgid "Featured Pages"
+msgstr ""
+
+#. translators: This is the link displayed on the Plugins page to the settings page for the plugin.
+#: featured-page-widget.php:156
+msgid "Settings"
+msgstr ""
+
+#: options-panel.php:4
+msgid "Default Settings"
+msgstr ""
+
+#: options-panel.php:10
+msgid "Default Content Settings"
+msgstr ""
+
+#: options-panel.php:14
+msgid "Default Content Length"
+msgstr ""
+
+#: options-panel.php:18
+msgid "Allowed Tags"
+msgstr ""
+
+#: options-panel.php:21
+msgid "A comma seperated list of tags to allow"
+msgstr ""
+
+#: options-panel.php:25
+msgid "Hide on Selected Page"
+msgstr ""
+
+#: options-panel.php:28
+msgid ""
+"If only one page is selected, otherwise a different random page is displayd"
+msgstr ""
+
+#: options-panel.php:36
+msgid "Default Link Settings"
+msgstr ""
+
+#: options-panel.php:41
+msgid "Link Text when no link image is present"
+msgstr ""
+
+#: options-panel.php:45
+msgid "Link Title to Post"
+msgstr ""
+
+#: options-panel.php:49
+msgid "Default Link Target"
+msgstr ""
+
+#: options-panel.php:51
+msgid "No Link target"
+msgstr ""
+
+#: options-panel.php:52 widget-form.php:41
+msgid "New Window"
+msgstr ""
+
+#: options-panel.php:53 widget-form.php:42
+msgid "Top Window"
+msgstr ""
+
+#: options-panel.php:57
+msgid "Default Link Alignment"
+msgstr ""
+
+#: options-panel.php:59 widget-form.php:50
+msgid "No Link Alignment"
+msgstr ""
+
+#: options-panel.php:60 options-panel.php:79 widget-form.php:51
+#: widget-form.php:63
+msgid "Align Left"
+msgstr ""
+
+#: options-panel.php:61 options-panel.php:80 widget-form.php:52
+msgid "Align Centered"
+msgstr ""
+
+#: options-panel.php:62 options-panel.php:81 widget-form.php:53
+#: widget-form.php:65
+msgid "Align Right"
+msgstr ""
+
+#: options-panel.php:71
+msgid "Default Image Settings"
+msgstr ""
+
+#: options-panel.php:76
+msgid "Default Image Alignment"
+msgstr ""
+
+#: options-panel.php:78 widget-form.php:62
+msgid "No Image Alignment"
+msgstr ""
+
+#: options-panel.php:86
+msgid "Link Image Width"
+msgstr ""
+
+#: options-panel.php:100
+msgid "Save Changes"
+msgstr ""
+
+#: options-panel.php:106
+msgid "About"
+msgstr ""
+
+#: options-panel.php:108
+msgid ""
+"This page sets the defaults for each widget. Each of these settings can be "
+"overridden when you add a featured page to the sidebar."
+msgstr ""
+
+#: options-panel.php:109
+msgid "You are using"
+msgstr ""
+
+#: options-panel.php:113
+msgid "Usage"
+msgstr ""
+
+#. translators: This is displayed in the "Usage" on the settings page. The parameter will be replaced with a link to the Appearance > Widgets page.
+#: options-panel.php:117
+#, php-format
+msgid ""
+"<p>After setting the defaults, you can add widgets on the %1$s screen. Each "
+"of the defaults to the left can be overridden for each individual instance. "
+"You can also customize how the widget text appears using the following "
+"custom fields on the page.</p>"
+msgstr ""
+
+#: options-panel.php:117
+msgid "Appearance &raquo; Widgets"
+msgstr ""
+
+#: options-panel.php:120
+msgid ""
+"<strong>featured-text</strong>: The plugin will use the text in this custom "
+"field in place of an excerpt from the page. Full HTML is supported in this "
+"field."
+msgstr ""
+
+#: options-panel.php:121
+msgid ""
+"<strong>featured-image</strong>: Add an image to the widget using the "
+"alignment set in the widget settings."
+msgstr ""
+
+#: options-panel.php:122
+msgid ""
+"<strong>featured-link</strong>: A full URL to an image to use in place of a "
+"text link."
+msgstr ""
+
+#: options-panel.php:128
+msgid "Recent Contributors"
+msgstr ""
+
+#: options-panel.php:131
+msgid ""
+"GrandSlambert would like to thank these wonderful contributors to this "
+"plugin!"
+msgstr ""
+
+#: options-panel.php:138
+msgid "Credits"
+msgstr ""
+
+#. translators: This is displayed in the credits. Parameters are plugin name, link to plugin page, link to support page.
+#: options-panel.php:143
+#, php-format
+msgid ""
+"Thank you for trying the %1$s plugin - I hope you find it useful. For the "
+"latest updates on this plugin, vist the %2$s. If you have problems with this "
+"plugin, please use our %3$s"
+msgstr ""
+
+#: options-panel.php:145
+msgid "official site"
+msgstr ""
+
+#: options-panel.php:146
+msgid "Support Forum"
+msgstr ""
+
+#. translators: Displayed under the credits. Parameters are the copyright dates, link to author, link to license.
+#: options-panel.php:152
+#, php-format
+msgid "This plugin is &copy; %1$s by %2$s and is released under the %3$s"
+msgstr ""
+
+#: options-panel.php:155
+msgid "GNU General Public License"
+msgstr ""
+
+#: options-panel.php:160
+msgid "Donate"
+msgstr ""
+
+#. translators: This is the text in the donate box. Parameter is replaced with link to the plugins page of the authors site.
+#: options-panel.php:165
+#, php-format
+msgid ""
+"If you find this plugin useful, please consider supporting this and our "
+"other great %1$s."
+msgstr ""
+
+#: options-panel.php:165
+msgid "plugins"
+msgstr ""
+
+#: options-panel.php:167
+msgid "Donate a few bucks!"
+msgstr ""
+
+#: widget-form.php:3
+msgid "Widget Title:<br /><small>Leave blank to use page title</small>"
+msgstr ""
+
+#: widget-form.php:9
+msgid "Featured Page<br /><small>(CTRL-Click to select multiple)</small>:"
+msgstr ""
+
+#: widget-form.php:17
+msgid "Hide on selected page:"
+msgstr ""
+
+#: widget-form.php:20
+msgid ""
+"If only one page is selected, otherwise show any other randomly selected "
+"page."
+msgstr ""
+
+#: widget-form.php:24
+msgid "Excerpt Length:<br /><small>If no excerpt specified</small>"
+msgstr ""
+
+#: widget-form.php:28
+msgid "Page Link"
+msgstr ""
+
+#: widget-form.php:31
+msgid "Link Title to Page:"
+msgstr ""
+
+#: widget-form.php:37
+msgid "Link Target:"
+msgstr ""
+
+#: widget-form.php:40
+msgid "No Link Target"
+msgstr ""
+
+#: widget-form.php:47
+msgid "Link Alignment:"
+msgstr ""
+
+#: widget-form.php:56
+msgid "Page Image (if present)"
+msgstr ""
+
+#: widget-form.php:59
+msgid "Image Alignment:"
+msgstr ""
+
+#: widget-form.php:64
+msgid "Align Center"
+msgstr ""
+
+#: widget-form.php:70
+msgid "Image Width (pixels):"
+msgstr ""
+
+#. Plugin Name of an extension
+msgid "Featured Page Widget"
+msgstr ""
+
+#. Plugin URI of an extension
+msgid "http://wordpress.grandslambert.com/plugins/featured-page-widget.html"
+msgstr ""
+
+#. Description of an extension
+msgid ""
+"Feature pages on your sidebar including an excerpt and either a text or "
+"image link to the page."
+msgstr ""
+
+#. Author of an extension
+msgid "GrandSlambert"
+msgstr ""
+
+#. Author URI of an extension
+msgid "http://wordpress.grandslambert.com/"
+msgstr ""

@@ -32,6 +32,14 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 
 == Changelog ==
 
+1.2 - January 15th, 2010
+
+* Fixed an issue on the Widget Form where defaults were always used.
+* Added a "none" option for image alignment.
+* Added a setting to allow user to indicate which tags are allowed in excerpts.
+* Changed name from "Featured Page Widget" to "Feature Pages" to better fit in menus.
+* Add support for language translation.
+
 1.1 - December 18th, 2009
 
 * Code cleanup and optimization.
