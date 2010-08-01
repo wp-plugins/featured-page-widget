@@ -1,17 +1,17 @@
 <?php
 /*
 Plugin Name: Featured Page Widget
-Plugin URI: http://wordpress.grandslambert.com/plugins/featured-page-widget.html
+Plugin URI: http://featuredpagewidget.grandslambert.com/
 Description: Feature pages on your sidebar including an excerpt and either a text or image link to the page.
 Author: GrandSlambert
-Version: 1.2
+Version: 1.3
 Author: GrandSlambert
 Author URI: http://wordpress.grandslambert.com/
 
 
 **************************************************************************
 
-Copyright (C) 2009 GrandSlambert
+Copyright (C) 2009-2010 GrandSlambert
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 /* Class Declaration */
 class FeaturedPageWidget extends WP_Widget {
-    var $version	= '1.2';
+    var $version	= '1.3';
 
     /* Options page name */
     var $optionsName	= 'featured-page-widget-options';
@@ -53,11 +53,13 @@ class FeaturedPageWidget extends WP_Widget {
         $this->WP_Widget('featured_page_widget', __($this->pluginName, 'featured-page-widget'), $widget_ops);
 
         $this->pluginPath = WP_CONTENT_DIR . '/plugins/' . plugin_basename(dirname(__FILE__));
+        $this->pluginURL = get_option('siteurl') . '/wp-content/plugins/' . plugin_basename(dirname(__FILE__));
         /* translators: This is the title of the plugin as used throughout the plugin. */
-        $this->pluginName = __('Featured Pages');
+        $this->pluginName = __('Featured Page Widget');
         $this->loadSettings();
 
-        // Add aministration page.
+        /* Wordpress hooks and filters */
+        add_action('wp_head', array($this, 'add_header') );
         add_action('admin_menu', array(&$this, 'addAdminPages'));
         add_filter('plugin_action_links', array(&$this, 'addConfigureLink'), 10, 2);
         add_action('admin_init', array(&$this, 'registerOptions'));
@@ -98,6 +100,10 @@ class FeaturedPageWidget extends WP_Widget {
             $this->options['allowed-tags'] = 'p';
         }
 
+        if (!$this->options['post-types']) {
+            $this->options['post-types'] = array('page');
+        }
+
         $tags = explode(',', $this->options['allowed-tags']);
 
         foreach ($tags as $tag) {
@@ -118,6 +124,13 @@ class FeaturedPageWidget extends WP_Widget {
         }
 
         return $whitelist;
+    }
+
+    /**
+     * Add items to the header of the web site.
+     */
+    function add_header() {
+        print "<link rel='stylesheet' href='" . $this->pluginURL . "/featured-page-widget.css' type='text/css' media='all' />";
     }
 
     /**
@@ -239,12 +252,16 @@ class FeaturedPageWidget extends WP_Widget {
             $content = $this->trim_excerpt($page->post_content, $length);
         }
 
-        if ($postimage = get_post_meta($page->ID, 'featured-image', true) ) {
-            $content = $this->makelink($page->ID, '<img src="' . $postimage . '" width="' . $imageWidth . '" border="0" class="align' . $imageAlign .'" /></a>', $linkTarget) . $content;
+        if (function_exists(has_post_thumbnail) and has_post_thumbnail($page->ID) and $instance['useimageas'] == 'image') {
+            $content = $this->makelink($page->ID, get_the_post_thumbnail($page->ID, array($imageWidth, $imageWidth), array('class'=>'align'. $imageAlign . ' fpw-image-' . $imageAlign)), $linkTarget) . $content;
+        } elseif ($postimage = get_post_meta($page->ID, 'featured-image', true) ) {
+            $content = $this->makelink($page->ID, '<img src="' . $postimage . '" width="' . $imageWidth . '" border="0" class="align' . $imageAlign .' fpw-image-' . $imageAlign . '" /></a>', $linkTarget) . $content;
         }
 
-        if ($linkImage = get_post_meta($page->ID, 'featured-link', true) ) {
-            $link = '<img src="' . $linkImage . '" border="0" />';
+        if (function_exists(has_post_thumbnail) and has_post_thumbnail($page->ID) and $instance['useimageas'] == 'link') {
+            $link = '<img src="' . wp_get_attachment_thumb_url(get_post_thumbnail_id($page->ID)) . '" width="' . $imageWidth . '" border="0" />';
+        } elseif ($linkImage = get_post_meta($page->ID, 'featured-link', true) ) {
+            $link = '<img src="' . $linkImage . '" width="' . $imageWidth . '" border="0" />';
         } else {
             $link = $this->options['link_text'];
         }
@@ -326,6 +343,7 @@ class FeaturedPageWidget extends WP_Widget {
             $linkalign = $this->options['link_align'];
             $imagealign = $this->options['image_align'];
             $imagewidth = $this->options['image_width'];
+            $useImageAs = 'none';
         } else {
             $linktitle = esc_attr($instance['linktitle']);
             $hidewidget = esc_attr($instance['hidewidget']);
@@ -334,6 +352,7 @@ class FeaturedPageWidget extends WP_Widget {
             $linkalign = esc_attr($instance['linkalign']);
             $imagealign = $instance['imagealign'];
             $imagewidth = $instance['imagewidth'];
+            $useImageAs = $instance['useimageas'];
         }
 
         include( $this->pluginPath . '/widget-form.php');
@@ -344,11 +363,11 @@ class FeaturedPageWidget extends WP_Widget {
      */
     function get_pages($selected = NULL, $name = 'page') {
 
-        if ( !is_array($selected) ){
+        if ( !is_array($selected) ) {
             $selected = array($selected);
         }
 
-        $pages = get_pages();
+        $pages = get_posts(array('post_type'=>$this->options['post-types'], 'posts_per_page'=>-1, 'showposts'=>-1, 'orderby'=>'title', 'order'=>'asc'));
 
         $output = '';
 
@@ -357,7 +376,7 @@ class FeaturedPageWidget extends WP_Widget {
             if ( in_array($page->ID, $selected) ) {
                 $output.= ' selected';
             }
-            $output.= '>' . $page->post_title . "</option>\n";
+            $output.= '>' . $page->post_title . ' (' . ucfirst($page->post_type) . ')' . "</option>\n";
         }
 
         return $output;

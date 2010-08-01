@@ -1,0 +1,20 @@
+/**
+ * featured-page-widget.css: Stylesheet for widget.
+ *
+ * @package Featured Page Widget
+ * @author GrandSlambert
+ * @copyright 2009-2010
+ * @access public
+ */
+
+ .fpw-image-left {
+     float: left;
+     padding-left: 5px;
+     padding-bottom: 5px;
+ }
+
+ .fpw-image-right {
+     float: right;
+     padding-left: 5px;
+     padding-bottom: 5px;
+ }

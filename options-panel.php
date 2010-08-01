@@ -1,3 +1,14 @@
+<?php if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You are not allowed to call this page directly.'); }
+/**
+ * options-panel.php - Settings page.
+ *
+ * @package Featured Page Widget
+ * @author GrandSlambert
+ * @copyright 2009-2010
+ * @access public
+ */
+?>
+
 <div class="wrap">
     <div class="icon32" id="icon-edit-pages"><br/>
     </div>
@@ -28,6 +39,22 @@
                                 <small><?php _e('If only one page is selected, otherwise a different random page is displayd', 'featured-page-widget'); ?></small>
                             </td>
                         </tr>
+                        <tr align="top">
+                            <th scope="row"><label for="<?php echo $this->optionsName; ?>_post_types"><?php _e('Post Types to Include', 'featured-page-widget'); ?></label></th>
+                            <td>
+                                <?php
+                                if (function_exists(get_post_types)) {
+                                    $types = get_post_types(array('public'=>true));
+                                } else {
+                                    $types = array('post','page');
+                                }
+                                ?>
+
+                                <?php foreach ($types as $type) :?>
+                                <label class="featured-page-widget-post-type"><input type="checkbox" name="<?php echo $this->optionsName; ?>[post-types][]" value="<?php echo $type; ?>" <?php checked(in_array($type, $this->options['post-types']),1); ?> /> <?php echo ucfirst($type); ?></label>
+                                <?php endforeach; ?>
+
+                            </td>
                     </table>
                 </div>
             </div>
@@ -106,7 +133,7 @@
             <h3 class="handl" style="margin:0; padding:3px;cursor:default;"><?php _e('About', 'featured-page-widget'); ?></h3>
             <div style="padding:5px;">
                 <p><?php _e('This page sets the defaults for each widget. Each of these settings can be overridden when you add a featured page to the sidebar.', 'featured-page-widget'); ?></p>
-                <p><?php _e('You are using', 'featured-page-widget'); ?> <strong> <a href="http://wordpress.grandslambert.com/plugins/featured-page-widget.html" target="_blank"><?php print $this->pluginName; ?> <?php print $this->showVersion(); ?></a></strong> by <a href="http://grandslambert.com" target="_blank">GrandSlambert</a>.</p>
+                <p><?php _e('You are using', 'featured-page-widget'); ?> <strong> <a href="http://featuredpagewidget.grandslambert.com/" target="_blank"><?php print $this->pluginName; ?> <?php print $this->showVersion(); ?></a></strong> by <a href="http://grandslambert.com" target="_blank">GrandSlambert</a>.</p>
             </div>
         </div>
         <div class="postbox">
@@ -142,7 +169,7 @@
                 /* translators: This is displayed in the credits. Parameters are plugin name, link to plugin page, link to support page. */
                 printf(__('Thank you for trying the %1$s plugin - I hope you find it useful. For the latest updates on this plugin, vist the %2$s. If you have problems with this plugin, please use our %3$s', 'featured-page-widget'),
                     $this->pluginName,
-                    '<a href="http://wordpress.grandslambert.com/plugins/featured-page-widget.html" target="_blank">' . __('official site', 'featured-page-widget') . '</a>',
+                    '<a href="http://featuredpagewidget.grandslambert.com/" target="_blank">' . __('official site', 'featured-page-widget') . '</a>',
                     '<a href="http://support.grandslambert.com/forum/featured-page-widget" target="_blank">' . __('Support Forum', 'featured-page-widget') . '</a>'
                 ); ?>
             </p>

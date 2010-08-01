@@ -1,9 +1,9 @@
 === Featured Page Widget ===
 Contributors: GrandSlambert
-Donate link: http://wordpress.grandslambert.com/plugins/featured-page-widget/donate.html
+Donate link: http://featuredpagewidget.grandslambert.com/donate.html
 Tags: widget, page, feature, buttons, links, excerpt
 Requires at least: 2.8
-Tested up to: 2.9
+Tested up to: 3.0.1
 Stable tag: trunk
 
 Allows you to feature pages on your sidebar using an excerpt of the page and a text or image link to the page.
@@ -12,7 +12,9 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 
 Allows you to feature pages on your sidebar using an excerpt of the page and a text or image link to the page.
 
-* <strong>NEW</strong>: Added an option to set what tags are allowed in excerpts.
+* <strong>NEW</strong>: Added support for custom post types.
+* <strong>NEW</strong>: Added support for post thumbnails.
+* Added an option to set what tags are allowed in excerpts.
 * Set up a random featured page by selecting multiple pages on the widget form.
 * Added option to hide the widget if only one page is selected and user is viewing that page.
 * Allows multiple widgets each featuring a different page.
@@ -33,7 +35,12 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 
 == Changelog ==
 
-1.2 - January 15th, 2010
+= 1.3 - August 1st, 2010 =
+
+* Added the ability to feature any post type, including custom types.
+* Added support for post thumbnails on themes that support them.
+
+= 1.2 - January 15th, 2010 =
 
 * Fixed an issue on the Widget Form where defaults were always used.
 * Added a "none" option for image alignment.
@@ -41,32 +48,35 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 * Changed name from "Featured Page Widget" to "Feature Pages" to better fit in menus.
 * Add support for language translation.
 
-1.1 - December 18th, 2009
+= 1.1 - December 18th, 2009 =
 
 * Code cleanup and optimization.
 
-1.0 - December 17th, 2009
+= 1.0 - December 17th, 2009 =
 
 * Fixed a bug to allow the plugin to work in Wordpress MU.
 
-0.7 - October 19th, 2009
+= 0.7 - October 19th, 2009 =
 
 * Added a "Random" option by selecting multiple pages on the widget form. Will retain old settings without any updates.
 * Added option to hide the widget if only one page is selected and user is viewing that page.
 * Cleaned up some extra code left during debugging.
 
-0.6 - October 16th, 2009
+= 0.6 - October 16th, 2009 =
 
 * Added basic instructions in the FAQ section and on the plugin settings page.
 * Added the ability to include an image in the widget using custom fields.
 * Image alignment and width added to default settings and to individual widget settings.
 * Image is linked to the post.
 
-0.5 - October 15th, 2009
+ =0.5 - October 15th, 2009 =
 
 * First release
 
 == Upgrade Notice ==
+
+= 1.3 =
+Adds features from Wordpress 3.0.
 
 = 1.1 =
 Not a required upgrade, but more optimized code.

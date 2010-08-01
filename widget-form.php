@@ -1,3 +1,14 @@
+<?php if(preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF'])) { die('You are not allowed to call this page directly.'); }
+/**
+ * widget-form.php - For for managing the widget..
+ *
+ * @package Featured Page Widget
+ * @author GrandSlambert
+ * @copyright 2009-2010
+ * @access public
+ */
+?>
+
 <p>
     <label for="<?php print $this->get_field_id('title'); ?>">
         <?php _e('Widget Title:<br /><small>Leave blank to use page title</small>', 'featured-page-widget'); ?>
@@ -54,6 +65,20 @@
     </select>
 </p>
 <h3><?php _e('Page Image (if present)', 'featured-page-widget'); ?></h3>
+
+<?php if (function_exists(has_post_thumbnail)) : ?>
+<p>
+    <label for="<?php print $this->get_Field_id('useimageas'); ?>">
+        <?php _e('Use thumbnail as', 'featured-page-widget'); ?>
+    </label>
+    <select name="<?php print $this->get_field_name('useimageas'); ?>" id="<?php print $this->get_field_id('useimageas'); ?>">
+        <option value="none" <?php selected($useImageAs, 'none'); ?>><?php _e('Ignore post thumbnail'); ?></option>
+        <option value="image" <?php selected($useImageAs, 'image'); ?>><?php _e('Page Image'); ?></option>
+        <option value="link" <?php selected($useImageAs, 'link'); ?>><?php _e('Read More Link'); ?></option>
+    </select>
+</p>
+<?php endif; ?>
+
 <p>
     <label for="<?php print $this->get_field_id('imagealign'); ?>">
         <?php _e('Image Alignment:', 'featured-page-widget'); ?>
