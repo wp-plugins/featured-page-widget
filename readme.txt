@@ -92,15 +92,15 @@ Certainly. By default the plugin will create an excerpt from your page content i
 
 = Can I use a button or graphic for the post link? =
 
-By default, the plugin uses the text set in the settings for the link in the widget. If you want to use an image instead, you need to create a custom field for the featured page with the name "featued-link" and place the full URL of the image in the value field. Future versions will allow a default image to be used instead of default text.
+By default, the plugin uses the text set in the settings for the link in the widget. If you want to use an image instead, you will need to edit the actual page and either set a featured image or create a custom field for the featured page with the name "featued-link" and place the full URL of the image in the value field.
 
 = How do I add an image to the widget? =
 
-To add an image, you need to edit the page itself, not the widget, and add a cutom field named "featured-image" and place the full URL to the image in the value field.
+To add an image, you need to edit the page itself, not the widget, and set the featured image for the page, if your theme supports it, or add a cutom field named "featured-image" and place the full URL to the image in the value field.
 
 = Can I have the widget feature a random page? =
 
-As of version 0.7 you can now select multiple pages on the widget form nd the widget will select a random page to feature with each page load. The widget will never display the current page as the featured page unless only one page is featured.
+As of version 0.7 you can now select multiple pages on the widget form and the widget will select a random page to feature with each page load. The widget will never display the current page as the featured page unless only one page is featured.
 
 = Where can I get support? =
 
