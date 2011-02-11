@@ -1,9 +1,9 @@
 === Featured Page Widget ===
-Contributors: GrandSlambert
-Donate link: http://featuredpagewidget.grandslambert.com/donate.html
+Contributors: grandslambert
+Donate link: http://plugins.grandslambert.com/featured-page-widget-donate
 Tags: widget, page, feature, buttons, links, excerpt
 Requires at least: 2.8
-Tested up to: 3.0.1
+Tested up to: 3.1
 Stable tag: trunk
 
 Allows you to feature pages on your sidebar using an excerpt of the page and a text or image link to the page.
@@ -12,9 +12,12 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 
 Allows you to feature pages on your sidebar using an excerpt of the page and a text or image link to the page.
 
-* <strong>NEW</strong>: Added support for custom post types.
-* <strong>NEW</strong>: Added support for post thumbnails.
+= Features =
+
+* Added support for custom post types.
+* Added support for post thumbnails.
 * Added an option to set what tags are allowed in excerpts.
+* Supports loading pages with the WPML plugin (for multi-langauge sites).
 * Set up a random featured page by selecting multiple pages on the widget form.
 * Added option to hide the widget if only one page is selected and user is viewing that page.
 * Allows multiple widgets each featuring a different page.
@@ -34,6 +37,14 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 4. Add widgets to your sidebar.
 
 == Changelog ==
+
+= 1.4 - Feburary 11th, 2011 =
+
+* Cleaned up the code and fixed some internal links.
+* Fixed the permalinks so they work for all post types.
+* Fixed the left align source code so it spaces the image from the content correctly.
+* Added support for loading pages with the WPML plugin.
+* Added two customizable image sizes so you can customize the images for your widget.
 
 = 1.3 - August 1st, 2010 =
 
@@ -74,6 +85,9 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 * First release
 
 == Upgrade Notice ==
+
+= 1.4 =
+Fixes a couple of issues and cleans up the code.
 
 = 1.3 =
 Adds features from Wordpress 3.0.
