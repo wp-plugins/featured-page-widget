@@ -4,7 +4,7 @@
   Plugin Name: Featured Page Widget
   Plugin URI: http://plugins.grandslambert.com/plugins/featured-page-widget.html
   Description: Feature pages on your sidebar including an excerpt and either a text or image link to the page.
-  Version: 1.4
+  Version: 1.5
   Author: grandslambert
   Author URI: http://grandslambert.com/
 
@@ -35,7 +35,7 @@
 class FeaturedPageWidget extends WP_Widget {
      /* Plugin Variables */
 
-     var $version = '1.4';
+     var $version = '1.5';
      var $make_link = false;
      var $options = array();
 
@@ -220,7 +220,6 @@ class FeaturedPageWidget extends WP_Widget {
       */
      function widget($args, $instance) {
           global $post, $_wp_additional_image_sizes;
-;
 
           $instance = $this->defaults($instance);
 
@@ -230,69 +229,112 @@ class FeaturedPageWidget extends WP_Widget {
 
           extract($args, EXTR_SKIP);
 
-          $pages = (array) $instance['page'];
+          /* Collect the pages to display */
 
-          if ( count($pages) > 1 ) {
-               do {
-                    $thePage = $pages[rand(0, count($pages) - 1)];
-               } while ($thePage == $post->ID);
-          } elseif ( $instance['hidewidget'] and $pages[0] == $post->ID ) {
-               return;
-          } else {
-               $thePage = $pages[0];
+          switch ($instance['items']) {
+               case '1':
+                    if ( $instance['hidewidget'] and $instance['page'][0] == $post->ID ) {
+                         return;
+                    }
+                    do {
+                         $random = $instance['page'][rand(0, count($instance['page']) - 1)];
+                    } while ($random == $post->ID);
+
+                    $pages[0] = $random;
+                    break;
+               default:
+                    if ( $instance['hidewidget'] and in_array($post->ID, $instance['page']) ) {
+                         /* Remove current page from array */
+                         $instance['page'] = array_flip($instance['page']);
+                         unset($instance['page'][$post->ID]);
+                         $instance['page'] = array_flip($instance['page']);
+                    }
+                    shuffle($instance['page']);
+
+                    if ( $instance['items'] == 'all' ) {
+                         $pages = $instance['page'];
+                    } else {
+                         $pages = array_slice($instance['page'], 0, $instance['items']);
+                    }
           }
 
-          /* WPML function. Get the right id for the right language */
-          if ( function_exists('icl_object_id') ) {
-               $thePage = icl_object_id($thePage);
-          }
-
-          $page = get_page($thePage);
-
-          if ( !$instance['title'] ) {
-               $instance['title'] = $page->post_title;
-          }
-
-          $instance['title'] = apply_filters('widget_title', $instance['title']);
-
-          if ( !$content = get_post_meta($page->ID, 'featured-text', true) ) {
-               $content = $this->trim_excerpt($page->post_content, $instance['length']);
-          }
-
-          if ( $postimage = get_post_meta($page->ID, 'featured-image', true) ) {
-               switch ($instance['thumbnail_size']) {
-                    default:
-                         $width = $_wp_additional_image_sizes[$instance['thumbnail_size']]['width'];
-                         $height = $_wp_additional_image_sizes[$instance['thumbnail_size']]['height'];
+          $content = '';
+          /* Loop through all pages */
+          foreach ( $pages as $current_page ) {
+               if ( !isset($first_page) ) {
+                    $first_page = $current_page;
                }
-               $content = $this->make_link($page->ID, '<img src="' . $postimage . '" width="' . $width . '" height="' . $height . '" border="0" class="align' . $instance['imagealign'] . ' fpw-image-' . $instance['imagealign'] . '" /></a>', $instance['target']) . $content;
-          } elseif ( function_exists('has_post_thumbnail') and has_post_thumbnail($page->ID) and $instance['useimageas'] == 'image' ) {
-               $content = $this->make_link($page->ID, get_the_post_thumbnail($page->ID, $instance['thumbnail_size'], array('class' => 'align' . $instance['imagealign'] . ' fpw-image-' . $instance['imagealign'])), $instance['target']) . $content;
+
+               /* WPML function. Get the right id for the right language */
+               if ( function_exists('icl_object_id') ) {
+                    $current_page = icl_object_id($current_page);
+               }
+
+               $page = get_post($current_page);
+
+               if ( !$instance['title'] ) {
+                    $instance['title'] = $page->post_title;
+                    $instance['title'] = apply_filters('widget_title', $instance['title']);
+               }
+
+               $content.= '<div id="featured_post_' . $page->ID . '">';
+
+               /* Add the post image */
+               if ( $postimage = get_post_meta($page->ID, 'featured-image', true) ) {
+                    switch ($instance['thumbnail_size']) {
+                         default:
+                              $width = $_wp_additional_image_sizes[$instance['thumbnail_size']]['width'];
+                              $height = $_wp_additional_image_sizes[$instance['thumbnail_size']]['height'];
+                    }
+                    $content.= $this->make_link($page->ID, '<img src="' . $postimage . '" width="' . $width . '" height="' . $height . '" border="0" class="align' . $instance['imagealign'] . ' fpw-image-' . $instance['imagealign'] . '" /></a>', $instance['target']);
+               } elseif ( function_exists('has_post_thumbnail') and has_post_thumbnail($page->ID) and $instance['useimageas'] == 'image' ) {
+                    $content.= $this->make_link($page->ID, get_the_post_thumbnail($page->ID, $instance['thumbnail_size'], array('class' => 'align' . $instance['imagealign'] . ' fpw-image-' . $instance['imagealign'])), $instance['target']);
+               }
+
+               /* Add the content */
+               $content.= '<div id="featured_post_content_' . $current_page. '" class="featured_post_content">';
+               if ( $excerpt = get_post_meta($page->ID, 'featured-text', true) ) {
+                    $content.= $excerpt;
+               } else {
+                    if ( $instance['add_title'] ) {
+                         //$content.= '<a href="' . get_permalink($page->ID) . '"><h3 class="featured-post-title">' . $page->post_title . '</a></h3>';
+                         $content.= '<h3 class="featured-post-title">' . $this->make_link($page->ID, $page->post_title, $instance['target']) . '</h3>';
+                    }
+                    $content.= $this->trim_excerpt($page->post_content, $instance['length']);
+               }
+               $content.= '</div>';
+
+               /* Add the read more link */
+               if ( function_exists('has_post_thumbnail') and has_post_thumbnail($page->ID) and $instance['useimageas'] == 'link' ) {
+                    $link = '<img src="' . wp_get_attachment_thumb_url(get_post_thumbnail_id($page->ID)) . '" width="' . $instance['imagewidth'] . '" border="0" />';
+               } elseif ( $linkImage = get_post_meta($page->ID, 'featured-link', true) ) {
+                    $link = '<img src="' . $linkImage . '" border="0" />';
+               } else {
+                    $link = $this->options['link_text'];
+               }
+
+               $content.= '<p  id="featured_post_more_link_' . $current_page. '" class="featured_post_more_link" align="' . $instance['linkalign'] . '">' . $this->make_link($page->ID, $link, $instance['target']) . '</p>';
+
+               $content.= '</div>';
           }
 
-          if ( function_exists('has_post_thumbnail') and has_post_thumbnail($page->ID) and $instance['useimageas'] == 'link' ) {
-               $link = '<img src="' . wp_get_attachment_thumb_url(get_post_thumbnail_id($page->ID)) . '" width="' . $instance['imagewidth'] . '" border="0" />';
-          } elseif ( $linkImage = get_post_meta($page->ID, 'featured-link', true) ) {
-               $link = '<img src="' . $linkImage . '" border="0" />';
-          } else {
-               $link = $this->options['link_text'];
-          }
-
-          $content.= '<p align="' . $instance['linkalign'] . '">' . $this->make_link($page->ID, $link, $instance['target']) . '</p>';
-
+          /* Output the widget */
           print $before_widget;
+
           if ( $instance['title'] ) {
                print $before_title;
 
                if ( $instance['linktitle'] ) {
-                    print $this->make_link($page->ID, $instance['title'], $instance['target']);
+                    print $this->make_link($first_page, $instance['title'], $instance['target']);
                } else {
                     print $instance['title'];
                }
 
                print $after_title;
           }
+
           print $content;
+
           print $after_widget;
      }
 
@@ -313,6 +355,14 @@ class FeaturedPageWidget extends WP_Widget {
           return $output;
      }
 
+     /**
+      * Trim the content to a set number of words.
+      *
+      * @global object $post
+      * @param string $text
+      * @param integer $length
+      * @return string
+      */
      function trim_excerpt($text, $length = NULL) {
           global $post;
 
@@ -356,10 +406,16 @@ class FeaturedPageWidget extends WP_Widget {
           $defaults = array(
                'title' => '',
                'linktitle' => $this->options['link_title'],
+               /* Page Settings */
+               'page' => array(),
+               'items' => 1,
+               'add_title' => false,
                'hidewidget' => $this->options['hide_widget'],
+               /* Link Settings */
                'length' => $this->options['length'],
                'target' => $this->options['target'],
                'linkalign' => $this->options['link_align'],
+               /* Image Settings */
                'imagealign' => $this->options['image_align'],
                'thumbnail_size' => $this->options['thumbnail_size'],
                'useimageas' => 'none'

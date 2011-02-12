@@ -38,6 +38,12 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 
 == Changelog ==
 
+= 1.5 - February 12th, 2011 =
+
+* Added an option to display the post title in the content if the widget title has been set.
+* Added an option to display multiple posts (at random) rather than just one.
+* Added tag ID and classes to all blocks for styling support.
+
 = 1.4 - Feburary 11th, 2011 =
 
 * Cleaned up the code and fixed some internal links.
