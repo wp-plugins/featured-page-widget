@@ -40,6 +40,6 @@ if ( preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF']) ) {
      </h3>
      <div style="padding:5px;">
           <p><?php _e('GrandSlambert would like to thank these wonderful contributors to this plugin!', 'featured-page-widget'); ?></p>
-          <?php //$this->contributor_list(); ?>
+          <?php $this->contributor_list(); ?>
      </div>
 </div>

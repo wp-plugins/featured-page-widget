@@ -38,6 +38,11 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 
 == Changelog ==
 
+= 1.6 - February 19th, 2011 =
+
+* Fixed an issue where language files would not load.
+* Fixed an issue where widget would be hidden on the first page of a list regardless of number of pages selected.
+
 = 1.5 - February 12th, 2011 =
 
 * Added an option to display the post title in the content if the widget title has been set.

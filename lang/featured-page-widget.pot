@@ -1,4 +1,4 @@
-# Translation of the WordPress plugin Featured Page Widget 1.4 by grandslambert.
+# Translation of the WordPress plugin Featured Page Widget 1.6 by grandslambert.
 # Copyright (C) 2011 grandslambert
 # This file is distributed under the same license as the Featured Page Widget package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
@@ -6,9 +6,9 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Featured Page Widget 1.4\n"
+"Project-Id-Version: Featured Page Widget 1.6\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/featured-page-widget\n"
-"POT-Creation-Date: 2011-02-11 15:36-0600\n"
+"POT-Creation-Date: 2011-02-19 19:09-0600\n"
 "PO-Revision-Date: 2011-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,12 +16,6 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-
-#. #-#-#-#-#  featured-page-widget.pot (Featured Page Widget 1.4)  #-#-#-#-#
-#. Plugin Name of the plugin/theme
-#: featured-page-widget.php:51
-msgid "Featured Page Widget"
-msgstr ""
 
 #. translators: This is the description shown on the Widgets page.
 #: featured-page-widget.php:58
@@ -145,22 +139,22 @@ msgstr ""
 msgid "Default Image Alignment"
 msgstr ""
 
-#: includes/settings/image.php:26 includes/widget-form.php:90
+#: includes/settings/image.php:26 includes/widget-form.php:102
 msgid "No Image Alignment"
 msgstr ""
 
 #: includes/settings/image.php:27 includes/settings/links.php:43
-#: includes/widget-form.php:67 includes/widget-form.php:91
+#: includes/widget-form.php:79 includes/widget-form.php:103
 msgid "Align Left"
 msgstr ""
 
 #: includes/settings/image.php:28 includes/settings/links.php:44
-#: includes/widget-form.php:68
+#: includes/widget-form.php:80
 msgid "Align Centered"
 msgstr ""
 
 #: includes/settings/image.php:29 includes/settings/links.php:45
-#: includes/widget-form.php:69 includes/widget-form.php:93
+#: includes/widget-form.php:81 includes/widget-form.php:105
 msgid "Align Right"
 msgstr ""
 
@@ -168,19 +162,19 @@ msgstr ""
 msgid "Default Thumbnail Size"
 msgstr ""
 
-#: includes/settings/image.php:37 includes/widget-form.php:99
+#: includes/settings/image.php:37 includes/widget-form.php:111
 msgid "No Thumbnail"
 msgstr ""
 
-#: includes/settings/image.php:38 includes/widget-form.php:100
+#: includes/settings/image.php:38 includes/widget-form.php:112
 msgid "Thumbnail (150x150px)"
 msgstr ""
 
-#: includes/settings/image.php:39 includes/widget-form.php:101
+#: includes/settings/image.php:39 includes/widget-form.php:113
 msgid "Medium (300x300px)"
 msgstr ""
 
-#: includes/settings/image.php:40 includes/widget-form.php:102
+#: includes/settings/image.php:40 includes/widget-form.php:114
 msgid "Large (640x640px)"
 msgstr ""
 
@@ -249,11 +243,11 @@ msgstr ""
 msgid "No Link target"
 msgstr ""
 
-#: includes/settings/links.php:35 includes/widget-form.php:57
+#: includes/settings/links.php:35 includes/widget-form.php:69
 msgid "New Window"
 msgstr ""
 
-#: includes/settings/links.php:36 includes/widget-form.php:58
+#: includes/settings/links.php:36 includes/widget-form.php:70
 msgid "Top Window"
 msgstr ""
 
@@ -261,7 +255,7 @@ msgstr ""
 msgid "Default Link Alignment"
 msgstr ""
 
-#: includes/settings/links.php:42 includes/widget-form.php:66
+#: includes/settings/links.php:42 includes/widget-form.php:78
 msgid "No Link Alignment"
 msgstr ""
 
@@ -355,77 +349,93 @@ msgid ""
 msgstr ""
 
 #: includes/widget-form.php:19
-msgid "Widget Title:<br /><small>Leave blank to use page title</small>"
+#, php-format
+msgid "Widget Title: %1$s(Leave blank to use page title)%2$s"
 msgstr ""
 
-#: includes/widget-form.php:25
-msgid "Featured Page<br /><small>(CTRL-Click to select multiple)</small>:"
+#: includes/widget-form.php:22
+msgid "Link to Entry"
 msgstr ""
 
-#: includes/widget-form.php:33
-msgid "Hide on selected page:"
+#: includes/widget-form.php:24
+msgid "Contents"
 msgstr ""
 
-#: includes/widget-form.php:36
-msgid ""
-"If only one page is selected, otherwise show any other randomly selected "
-"page."
+#: includes/widget-form.php:27
+#, php-format
+msgid "Featured Page(s) %1$s(CTRL-Click to select multiple)%2$s:"
 msgstr ""
 
-#: includes/widget-form.php:40
-msgid "Excerpt Length:<br /><small>If no excerpt specified</small>"
+#: includes/widget-form.php:35
+msgid "How many to display per page"
 msgstr ""
 
-#: includes/widget-form.php:44
-msgid "Page Link"
+#: includes/widget-form.php:38
+msgid "Show All"
 msgstr ""
 
 #: includes/widget-form.php:47
-msgid "Link Title to Page:"
+msgid "Include page title in content."
 msgstr ""
 
 #: includes/widget-form.php:53
+msgid "Do not include current post in content."
+msgstr ""
+
+#: includes/widget-form.php:58
+msgid "Excerpt Length:"
+msgstr ""
+
+#: includes/widget-form.php:62
+msgid "Page Links"
+msgstr ""
+
+#: includes/widget-form.php:65
 msgid "Link Target:"
 msgstr ""
 
-#: includes/widget-form.php:56
+#: includes/widget-form.php:68
 msgid "No Link Target"
 msgstr ""
 
-#: includes/widget-form.php:63
+#: includes/widget-form.php:75
 msgid "Link Alignment:"
 msgstr ""
 
-#: includes/widget-form.php:72
-msgid "Page Image (if present)"
+#: includes/widget-form.php:84
+msgid "Featured Image Settings"
 msgstr ""
 
-#: includes/widget-form.php:77
+#: includes/widget-form.php:89
 msgid "Use thumbnail as"
 msgstr ""
 
-#: includes/widget-form.php:80
+#: includes/widget-form.php:92
 msgid "Ignore post thumbnail"
 msgstr ""
 
-#: includes/widget-form.php:81
+#: includes/widget-form.php:93
 msgid "Page Image"
 msgstr ""
 
-#: includes/widget-form.php:82
+#: includes/widget-form.php:94
 msgid "Read More Link"
 msgstr ""
 
-#: includes/widget-form.php:88
+#: includes/widget-form.php:100
 msgid "Image Alignment:"
 msgstr ""
 
-#: includes/widget-form.php:92
+#: includes/widget-form.php:104
 msgid "Align Center"
 msgstr ""
 
-#: includes/widget-form.php:97
+#: includes/widget-form.php:109
 msgid "Image Size:"
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Featured Page Widget"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
