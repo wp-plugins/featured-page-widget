@@ -42,7 +42,7 @@ $tabs = array(
                </div>
           <?php elseif ( isset($_REQUEST['updated']) ) : ?>
                     <div id="settings-error-index-press_upated" class="updated settings-error">
-                         <p><strong><?php _e('Featured Page Widget Settings Saved.', 'index-press'); ?></strong></p>
+                         <p><strong><?php _e('Featured Page Widget Settings Saved.', 'featured-page-widget'); ?></strong></p>
                     </div>
           <?php endif; ?>
           <?php settings_fields($this->optionsName); ?>

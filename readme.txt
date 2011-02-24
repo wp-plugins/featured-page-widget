@@ -38,6 +38,11 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 
 == Changelog ==
 
+= 1.7 - February 24th, 2011 =
+
+* Fixed an issue that created an infinite loop if only one page was selected.
+* Fixed some language file issues and added a new language file.
+
 = 1.6 - February 19th, 2011 =
 
 * Fixed an issue where language files would not load.
@@ -96,6 +101,9 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 * First release
 
 == Upgrade Notice ==
+
+= 1.7 =
+Fixes an infinite loop issue that affected widgets with only one page selected.
 
 = 1.4 =
 Fixes a couple of issues and cleans up the code.

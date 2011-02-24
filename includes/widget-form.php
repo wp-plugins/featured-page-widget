@@ -89,9 +89,9 @@ if ( preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF']) ) {
           <?php _e('Use thumbnail as', 'featured-page-widget'); ?>
           </label>
           <select name="<?php print $this->get_field_name('useimageas'); ?>" id="<?php print $this->get_field_id('useimageas'); ?>">
-               <option value="none" <?php selected($instance['useimageas'], 'none'); ?>><?php _e('Ignore post thumbnail'); ?></option>
-               <option value="image" <?php selected($instance['useimageas'], 'image'); ?>><?php _e('Page Image'); ?></option>
-               <option value="link" <?php selected($instance['useimageas'], 'link'); ?>><?php _e('Read More Link'); ?></option>
+               <option value="none" <?php selected($instance['useimageas'], 'none'); ?>><?php _e('Ignore post thumbnail', 'featured-page-widget'); ?></option>
+               <option value="image" <?php selected($instance['useimageas'], 'image'); ?>><?php _e('Page Image', 'featured-page-widget'); ?></option>
+               <option value="link" <?php selected($instance['useimageas'], 'link'); ?>><?php _e('Read More Link', 'featured-page-widget'); ?></option>
           </select>
      </p>
 <?php endif; ?>
@@ -108,10 +108,10 @@ if ( preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF']) ) {
                <p>
                     <label for="<?php print $this->get_field_id('thumbnail_size'); ?>"><?php _e('Image Size:', 'featured-page-widget'); ?></label>
                     <select id="<?php echo $this->get_field_id('thumbnail_size'); ?>" name="<?php echo $this->get_field_name('thumbnail_size'); ?>">
-                         <option value="none" <?php selected($instance['thumbnail_size'], 'none'); ?> ><?php _e('No Thumbnail', 'pretty-sidebar-categories'); ?></option>
-                         <option value="thumbnail" <?php selected($instance['thumbnail_size'], 'thumbnail'); ?> ><?php _e('Thumbnail (150x150px)', 'pretty-sidebar-categories'); ?></option>
-                         <option value="medium" <?php selected($instance['thumbnail_size'], 'medium'); ?> ><?php _e('Medium (300x300px)', 'pretty-sidebar-categories'); ?></option>
-                         <option value="large" <?php selected($instance['thumbnail_size'], 'large'); ?> ><?php _e('Large (640x640px)', 'pretty-sidebar-categories'); ?></option>
+                         <option value="none" <?php selected($instance['thumbnail_size'], 'none'); ?> ><?php _e('No Thumbnail', 'featured-page-widget'); ?></option>
+                         <option value="thumbnail" <?php selected($instance['thumbnail_size'], 'thumbnail'); ?> ><?php _e('Thumbnail (150x150px)', 'featured-page-widget'); ?></option>
+                         <option value="medium" <?php selected($instance['thumbnail_size'], 'medium'); ?> ><?php _e('Medium (300x300px)', 'featured-page-widget'); ?></option>
+                         <option value="large" <?php selected($instance['thumbnail_size'], 'large'); ?> ><?php _e('Large (640x640px)', 'featured-page-widget'); ?></option>
 
           <?php foreach ( $_wp_additional_image_sizes as $name => $size ) : ?>
                     <option value="<?php echo $name; ?>" <?php selected($instance['thumbnail_size'], $name); ?> ><?php echo $name; ?> (<?php echo $size['width']; ?>x<?php echo $size['height']; ?>px)</option>
