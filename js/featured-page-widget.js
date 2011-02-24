@@ -28,7 +28,7 @@ function featured_page_settings_save() {
 }
 
 /* Function to verify selection to reset options */
-function verifyResetOptions(element) {
+function featured_page_reset_options(element) {
      if (element.checked) {
           if (prompt('Are you sure you want to reset all of your options? To confirm, type the word "reset" into the box.') == 'reset' ) {
                document.getElementById('featured_page_widget_settings').submit();

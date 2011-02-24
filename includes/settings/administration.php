@@ -23,7 +23,7 @@ if ( preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF']) ) {
                <tbody>
                     <tr align="top">
                          <th scope="row"><label for="index_press_reset_options"><?php _e('Reset to default: ', 'featured-page-widget'); ?></label></th>
-                         <td><input type="checkbox" id="index_press_reset_options" name="confirm-reset-options" value="1" onclick="verifyResetOptions(this)" /></td>
+                         <td><input type="checkbox" id="index_press_reset_options" name="confirm-reset-options" value="1" onclick="featured_page_reset_options(this)" /></td>
                     </tr>
                     <!--
                     <tr align="top">

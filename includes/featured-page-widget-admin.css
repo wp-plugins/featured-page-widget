@@ -49,17 +49,17 @@ ul#featured_page_widget_tabs {
      margin: 2px 0px 0px 5px;
 }
 
-#featured_page_widget_tabs li.save-tab {
-     background-color: #666;
-     font-weight: bold;
-}
-
 #featured_page_widget_tabs li a {
      color: #666;
      display: block;
      float: right;
      padding: 5px;
      text-decoration: none;
+}
+
+#featured_page_widget_tabs li.save-tab {
+     background-color: #666;
+     font-weight: bold;
 }
 
 #featured_page_widget_tabs li.save-tab a {
