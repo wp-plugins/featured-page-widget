@@ -40,10 +40,6 @@ $tabs = array(
                <div id="settings-error-featured-page-widget_upated" class="updated settings-error">
                     <p><strong><?php _e('Featured Page Widget settings have been reset to defaults.', 'featured-page-widget'); ?></strong></p>
                </div>
-          <?php elseif ( isset($_REQUEST['updated']) ) : ?>
-                    <div id="settings-error-index-press_upated" class="updated settings-error">
-                         <p><strong><?php _e('Featured Page Widget Settings Saved.', 'featured-page-widget'); ?></strong></p>
-                    </div>
           <?php endif; ?>
           <?php settings_fields($this->optionsName); ?>
                     <input type="hidden" name="<?php echo $this->optionsName; ?>[random-value]" value="<?php echo rand(1000, 100000); ?>" />
@@ -68,11 +64,11 @@ $tabs = array(
                          </div>
 
                          <div  style="width:49%; float:right">
-               <?php require_once($this->pluginPath . '/includes/sidebar.php'); ?>
+               <?php require_once($this->pluginPath . 'includes/sidebar.php'); ?>
                          </div>
 
 
                     </form>
-     <?php require_once($this->pluginPath . '/includes/footer.php'); ?>
+     <?php require_once($this->pluginPath . 'includes/footer.php'); ?>
 
 </div>

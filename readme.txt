@@ -1,7 +1,7 @@
 === Featured Page Widget ===
 Contributors: grandslambert
 Donate link: http://plugins.grandslambert.com/featured-page-widget-donate
-Tags: widget, page, feature, buttons, links, excerpt
+Tags: widget, page, feature, buttons, links, excerpt, shortcode
 Requires at least: 2.8
 Tested up to: 3.1
 Stable tag: trunk
@@ -14,6 +14,7 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 
 = Features =
 
+* Added support for custom templates - includes 4 different templates.
 * Added support for custom post types.
 * Added support for post thumbnails.
 * Added an option to set what tags are allowed in excerpts.
@@ -37,6 +38,11 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 4. Add widgets to your sidebar.
 
 == Changelog ==
+
+= 2.0 - February 25th, 2011 =
+
+* Add a shortcode to display featured pages within posts and pages.
+* Add templates to widget and shortcode layout to allow users to customize output.
 
 = 1.7 - February 24th, 2011 =
 
@@ -101,6 +107,9 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 * First release
 
 == Upgrade Notice ==
+
+= 2.0 =
+No requirement to update - but some new features make the plugin more verstaile.
 
 = 1.7 =
 Fixes an infinite loop issue that affected widgets with only one page selected.

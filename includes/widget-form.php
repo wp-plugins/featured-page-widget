@@ -19,7 +19,7 @@ if ( preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF']) ) {
           <?php printf(__('Widget Title: %1$s(Leave blank to use page title)%2$s', 'featured-page-widget'), '<small>', '</small>'); ?>
      </label>
      <input id="<?php print $this->get_field_id('title'); ?>" name="<?php print $this->get_field_name('title'); ?>" type="text" value="<?php print $instance['title']; ?>" />
-     <label><input name="<?php print $this->get_field_name('linktitle'); ?>" id="<?php print $this->get_field_id('linktitle'); ?>" type="checkbox" value="1" <?php checked($instance['linktitle']); ?> /> <?php _e('Link to Entry', 'featured-page-widget'); ?></label>
+     <label><input name="<?php print $this->get_field_name('linktitle'); ?>" id="<?php print $this->get_field_id('linktitle'); ?>" type="checkbox" value="1" <?php checked($instance['linktitle']); ?> /> <?php _e('Link title to Entry', 'featured-page-widget'); ?></label>
 </p>
 <h3><?php _e('Contents', 'featured-page-widget'); ?></h3>
 <p>
@@ -31,8 +31,18 @@ if ( preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF']) ) {
      </select>
 </p>
 <p>
+     <label for="<?php print $this->get_field_id('template'); ?>">
+          <?php _e('Template', 'featured-page-widget'); ?> : 
+     </label>
+     <select name="<?php print $this->get_field_name('template'); ?>" id="<?php print $this->get_field_id('template'); ?>">
+          <?php foreach ($this->get_widget_templates() as $template=>$name) : ?>
+          <option value="<?php echo $template; ?>" <?php selected($instance['template'], $template); ?>><?php echo $name; ?></option>
+          <?php endforeach; ?>
+     </select>
+</p>
+<p>
      <label for="<?php print $this->get_field_id('items'); ?>">
-          <?php printf(__('How many to display per page', 'featured-page-widget'), '<small>', '</small>'); ?> : 
+          <?php _e('How many to display per page', 'featured-page-widget'); ?> :
      </label>
      <select name="<?php print $this->get_field_name('items'); ?>" id="<?php print $this->get_field_id('items'); ?>">
           <option value="all" <?php selected($instance['items'], 'all'); ?>><?php _e('Show All', 'featured-page-widget'); ?></option>
@@ -40,12 +50,6 @@ if ( preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF']) ) {
           <option value="<?php echo $ictr; ?>" <?php selected($instance['items'], $ictr); ?>><?php echo $ictr; ?></option>
           <?php endfor; ?>
      </select>
-</p>
-<p>
-     <label>
-          <input name="<?php print $this->get_field_name('add_title'); ?>" id="<?php print $this->get_field_id('add_title'); ?>" type="checkbox" value="1" <?php checked($instance['add_title'], 1); ?> />
-          <?php _e('Include page title in content.', 'featured-page-widget'); ?>
-     </label>
 </p>
 <p>
      <label>
@@ -81,7 +85,7 @@ if ( preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF']) ) {
           <option value="right" <?php selected($instance['linkalign'], 'right'); ?> ><?php _e('Align Right', 'featured-page-widget'); ?></option>
      </select>
 </p>
-<h3><?php _e('Featured Image Settings', 'featured-page-widget'); ?></h3>
+<h3><?php _e('Featured Image Usage', 'featured-page-widget'); ?></h3>
 
 <?php if ( function_exists('has_post_thumbnail') ) : ?>
                <p>

@@ -4,7 +4,7 @@
   Plugin Name: Featured Page Widget
   Plugin URI: http://plugins.grandslambert.com/plugins/featured-page-widget.html
   Description: Feature pages on your sidebar including an excerpt and either a text or image link to the page.
-  Version: 1.7
+  Version: 2.0
   Author: grandslambert
   Author URI: http://grandslambert.com/
 
@@ -35,24 +35,24 @@
 class FeaturedPageWidget extends WP_Widget {
      /* Plugin Variables */
 
-     var $version = '1.7';
+     var $version = '2.0';
      var $make_link = false;
      var $options = array();
 
      /* Options page name */
      var $optionsName = 'featured-page-widget-options';
      var $menuName = 'featured-pages-settings';
-     var $pluginName = 'Featured Pages';
+     var $pluginName;
 
      /**
       * Method constructor
       */
      function FeaturedPageWidget() {
-          load_plugin_textdomain('featured-page-lists', false, dirname(plugin_basename(__FILE__)) . '/lang');
-
           /* Load the language support */
-          $langDir = dirname(plugin_basename(__FILE__)) . '/lang';
-          load_plugin_textdomain('featured-page-widget', false, $langDir, $langDir);
+          load_plugin_textdomain('featured-page-widget', false, dirname(plugin_basename(__FILE__)) . '/lang');
+
+          /* Plugin Details */
+          $this->pluginName = __('Featured Page Widget', 'featured-page-widget');
 
           /* translators: This is the description shown on the Widgets page. */
           $widget_ops = array('description' => __('Feature a page on your sidebar. By GrandSlambert.', 'featured-page-widget'));
@@ -61,8 +61,13 @@ class FeaturedPageWidget extends WP_Widget {
           $this->WP_Widget('featured_page_widget', __($this->pluginName, 'featured-page-widget'), $widget_ops, $control_ops);
 
           /* Plugin paths */
-          $this->pluginPath = WP_PLUGIN_DIR . '/' . basename(dirname(__FILE__));
-          $this->pluginURL = WP_PLUGIN_URL . '/' . basename(dirname(__FILE__));
+          $this->pluginPath = WP_PLUGIN_DIR . '/' . basename(dirname(__FILE__)) . '/';
+          $this->pluginURL = WP_PLUGIN_URL . '/' . basename(dirname(__FILE__)) . '/';
+          $this->templatesPath = WP_PLUGIN_DIR . '/' . basename(dirname(__FILE__)) . '/templates/';
+          $this->templatesURL = WP_PLUGIN_URL . '/' . basename(dirname(__FILE__)) . '/templates/';
+
+          /* Get required files */
+          require_once($this->pluginPath . 'includes/template_tags.php');
 
           /* Load the plugin settings */
           $this->load_settings();
@@ -76,6 +81,9 @@ class FeaturedPageWidget extends WP_Widget {
 
           /* WordPress Filters */
           add_filter('plugin_action_links', array(&$this, 'plugin_action_links'), 10, 2);
+
+          /* Add shortcodes */
+          add_shortcode('featured_pages', array(&$this, 'featured_pages_shortcode'));
 
           /* Add Image Sizes */
           add_image_size('featured-page-image-small', $this->options['small-image'][0], $this->options['small-image'][1], $this->options['hard-crop']);
@@ -105,6 +113,7 @@ class FeaturedPageWidget extends WP_Widget {
                'full-image' => array(200, 125),
                'hard-crop' => isset($options['hard-crop']) ? $options['hard-crop'] : true,
           );
+          
           $this->options = wp_parse_args($options, $defaults);
 
           /* Build the list of allowed tags in excerpts */
@@ -118,7 +127,7 @@ class FeaturedPageWidget extends WP_Widget {
       * Register front end styles.
       */
      function wp_loaded() {
-          wp_register_style('featured-widget-css', $this->pluginURL . '/includes/featured-page-widget.css');
+          wp_register_style('featured-widget-css', $this->get_template('featured-page-widget', '.css', 'url'));
      }
 
      /**
@@ -133,8 +142,8 @@ class FeaturedPageWidget extends WP_Widget {
       */
      function admin_init() {
           register_setting($this->optionsName, $this->optionsName);
-          wp_register_style('featured-page-widget-admin-css', $this->pluginURL . '/includes/featured-page-widget-admin.css');
-          wp_register_script('featured-page-widget-js', $this->pluginURL . '/js/featured-page-widget.js');
+          wp_register_style('featured-page-widget-admin-css', $this->pluginURL . 'includes/featured-page-widget-admin.css');
+          wp_register_script('featured-page-widget-js', $this->pluginURL . 'js/featured-page-widget.js');
      }
 
      /**
@@ -157,7 +166,8 @@ class FeaturedPageWidget extends WP_Widget {
       * @global string $wp_version
       */
      function admin_menu() {
-          $page = add_options_page($this->pluginName . __('Settings', 'featured-page-widget'), $this->pluginName, 'manage_options', $this->menuName, array(&$this, 'options_panel'));
+          /* translators: This is used in the title of page and should start with a blank space. */
+          $page = add_options_page($this->pluginName . __(' Settings', 'featured-page-widget'), $this->pluginName, 'manage_options', $this->menuName, array(&$this, 'options_panel'));
 
           add_action('admin_print_styles-' . $page, array(&$this, 'admin_print_styles'));
           add_action('admin_print_scripts-' . $page, array(&$this, 'admin_print_scripts'));
@@ -192,7 +202,7 @@ class FeaturedPageWidget extends WP_Widget {
       */
      function options_panel() {
           global $_wp_additional_image_sizes;
-          include($this->pluginPath . '/includes/settings.php');
+          include($this->pluginPath . 'includes/settings.php');
      }
 
      /**
@@ -212,6 +222,58 @@ class FeaturedPageWidget extends WP_Widget {
      }
 
      /**
+      * Shortcode handler
+      *
+      * @global object $post
+      * @param array $atts
+      * @return string
+      */
+     function featured_pages_shortcode($atts) {
+          global $post, $this_instance;
+          $old_post = $post;
+
+          
+          $defaults = array(
+               'template' => 'standard',
+               'pages' => get_option('sticky_posts'),
+               'items' => 5,
+               'length' => $this->options['length'],
+               'orderby' => 'title',
+               'order' => 'ASC',
+               'post_types' => $this->options['post_types'],
+               'ignore_sticky' => true,
+               'useimageas' => false,
+               'thumbnail_size' => $this->options['thumbnail_size'],
+               'imagealign' => $this->options['image_align'],
+               'linktext' => $this->options['link_text'],
+               'linkalign' => $this->options['link_align']
+          );
+
+          $instance = $this_instance = $atts = wp_parse_args($atts, $defaults);
+
+          /* Get the list of pages */
+          $args = array(
+               'post__in' => (is_array($atts['pages'])) ? $atts['pages'] : explode(',', $atts['pages']),
+               'posts_per_page' => $atts['items'],
+               'orderby' => $atts['orderby'],
+               'order' => $atts['order'],
+               'post_type' => $atts['post_types'],
+               'ignore_sticky_posts' => $atts['ignore_sticky'],
+          );
+
+          $featured = new WP_Query($args);
+
+          /* Create and return the content */
+          ob_start();
+          include($this->get_template($atts['template']));
+          $content = ob_get_contents();
+          ob_end_clean();
+
+          $post = $old_post;
+          return $content;
+     }
+
+     /**
       * Method to create the widget.
       *
       * @param array $args
@@ -219,9 +281,10 @@ class FeaturedPageWidget extends WP_Widget {
       * @return false
       */
      function widget($args, $instance) {
-          global $post, $_wp_additional_image_sizes;
+          global $post, $_wp_additional_image_sizes, $this_instance;
 
-          $instance = $this->defaults($instance);
+          $old_post = $post;
+          $this_instance = $instance = $this->defaults($instance);
 
           if ( (isset($instance['error']) && $instance['error']) or !isset($instance['page']) ) {
                return;
@@ -229,94 +292,23 @@ class FeaturedPageWidget extends WP_Widget {
 
           extract($args, EXTR_SKIP);
 
-          /* Collect the pages to display */
-
-          switch ($instance['items']) {
-               case '1':
-                    if ( $instance['hidewidget'] and count($instance['page']) == 1 and $instance['page'][0] == $post->ID ) {
-                         return;
-                    }
-                    do {
-                         $random = $instance['page'][rand(0, count($instance['page']) - 1)];
-                    } while ($random == $post->ID);
-
-                    $pages[0] = $random;
-                    break;
-               default:
-                    if ( $instance['hidewidget'] and in_array($post->ID, $instance['page']) ) {
-                         /* Remove current page from array */
-                         $instance['page'] = array_flip($instance['page']);
-                         unset($instance['page'][$post->ID]);
-                         $instance['page'] = array_flip($instance['page']);
-                    }
-                    shuffle($instance['page']);
-
-                    if ( $instance['items'] == 'all' ) {
-                         $pages = $instance['page'];
-                    } else {
-                         $pages = array_slice($instance['page'], 0, $instance['items']);
-                    }
+          /* Remove current page from list of pages if set */
+          if ( $instance['hidewidget'] and in_array($post->ID, $instance['page']) ) {
+               $pages = array_flip($instance['page']);
+               unset($pages[$post->ID]);
+               $instance['page'] = array_flip($pages);
           }
 
-          $content = '';
-          /* Loop through all pages */
-          foreach ( $pages as $current_page ) {
-               if ( !isset($first_page) ) {
-                    $first_page = $current_page;
-               }
+          /* Get the list of pages */
+          $args = array(
+               'post__in' => $instance['page'],
+               'posts_per_page' => $instance['items'],
+               'orderby' => 'rand',
+               'post_type' => $this->options['post_types'],
+               'ignore_sticky_posts' => true,
+          );
 
-               /* WPML function. Get the right id for the right language */
-               if ( function_exists('icl_object_id') ) {
-                    $current_page = icl_object_id($current_page);
-               }
-
-               $page = get_post($current_page);
-
-               if ( !$instance['title'] ) {
-                    $instance['title'] = $page->post_title;
-                    $instance['title'] = apply_filters('widget_title', $instance['title']);
-               }
-
-               $content.= '<div id="featured_post_' . $page->ID . '">';
-
-               /* Add the post image */
-               if ( $postimage = get_post_meta($page->ID, 'featured-image', true) ) {
-                    switch ($instance['thumbnail_size']) {
-                         default:
-                              $width = $_wp_additional_image_sizes[$instance['thumbnail_size']]['width'];
-                              $height = $_wp_additional_image_sizes[$instance['thumbnail_size']]['height'];
-                    }
-                    $content.= $this->make_link($page->ID, '<img src="' . $postimage . '" width="' . $width . '" height="' . $height . '" border="0" class="align' . $instance['imagealign'] . ' fpw-image-' . $instance['imagealign'] . '" /></a>', $instance['target']);
-               } elseif ( function_exists('has_post_thumbnail') and has_post_thumbnail($page->ID) and $instance['useimageas'] == 'image' ) {
-                    $content.= $this->make_link($page->ID, get_the_post_thumbnail($page->ID, $instance['thumbnail_size'], array('class' => 'align' . $instance['imagealign'] . ' fpw-image-' . $instance['imagealign'])), $instance['target']);
-               }
-
-               /* Add the content */
-               $content.= '<div id="featured_post_content_' . $current_page. '" class="featured_post_content">';
-               if ( $excerpt = get_post_meta($page->ID, 'featured-text', true) ) {
-                    $content.= $excerpt;
-               } else {
-                    if ( $instance['add_title'] ) {
-                         //$content.= '<a href="' . get_permalink($page->ID) . '"><h3 class="featured-post-title">' . $page->post_title . '</a></h3>';
-                         $content.= '<h3 class="featured-post-title">' . $this->make_link($page->ID, $page->post_title, $instance['target']) . '</h3>';
-                    }
-                    $content.= $this->trim_excerpt($page->post_content, $instance['length']);
-               }
-               $content.= '</div>';
-
-               /* Add the read more link */
-               if ( function_exists('has_post_thumbnail') and has_post_thumbnail($page->ID) and $instance['useimageas'] == 'link' ) {
-                    $link = '<img src="' . wp_get_attachment_thumb_url(get_post_thumbnail_id($page->ID)) . '" width="' . $instance['imagewidth'] . '" border="0" />';
-               } elseif ( $linkImage = get_post_meta($page->ID, 'featured-link', true) ) {
-                    $link = '<img src="' . $linkImage . '" border="0" />';
-               } else {
-                    $link = $this->options['link_text'];
-               }
-
-               $content.= '<p  id="featured_post_more_link_' . $current_page. '" class="featured_post_more_link" align="' . $instance['linkalign'] . '">' . $this->make_link($page->ID, $link, $instance['target']) . '</p>';
-
-               $content.= '</div>';
-          }
+          $featured = new WP_Query($args);
 
           /* Output the widget */
           print $before_widget;
@@ -325,7 +317,7 @@ class FeaturedPageWidget extends WP_Widget {
                print $before_title;
 
                if ( $instance['linktitle'] ) {
-                    print $this->make_link($first_page, $instance['title'], $instance['target']);
+                    print $this->make_link($featured->posts[0]->ID, $instance['title'], $instance['target']);
                } else {
                     print $instance['title'];
                }
@@ -333,9 +325,11 @@ class FeaturedPageWidget extends WP_Widget {
                print $after_title;
           }
 
-          print $content;
+          include ($this->get_template($instance['template']));
 
           print $after_widget;
+
+          $post = $old_post;
      }
 
      /**
@@ -363,16 +357,16 @@ class FeaturedPageWidget extends WP_Widget {
       * @param integer $length
       * @return string
       */
-     function trim_excerpt($text, $length = NULL) {
+     function trim_excerpt($text, $length = NULL, $notags = false) {
           global $post;
 
-          if ( !$length ) {
-               $length = $this->options['length'];
-          }
+          $length = ( NULL === $length) ? $this->options['length'] : $length;
+          $notags = ( NULL === $notags) ? false : $notags;
 
+          $allowed_tags = (false === $notags) ? $this->options['allowed-tags-formatted'] : '';
           $text = apply_filters('the_content', $text);
           $text = str_replace(']]>', ']]&gt;', $text);
-          $text = strip_tags($text, $this->options['allowed-tags-formatted']);
+          $text = strip_tags($text, $allowed_tags);
           $text = preg_replace('@<script[^>]*?>.*?</script>@si', '', $text);
           $words = explode(' ', $text, $length + 1);
           if ( count($words) > $length ) {
@@ -381,9 +375,14 @@ class FeaturedPageWidget extends WP_Widget {
                $text = implode(' ', $words);
           }
 
-          $tags = explode(',', $this->options['allowed-tags']);
-          foreach ( $tags as $tag ) {
-               $text.= '</' . $tag . '>';
+          /* Close any open tags. */
+          if ( !$notags ) {
+               $tags = explode(',', $this->options['allowed-tags']);
+               foreach ( $tags as $tag ) {
+                    if ( $tag != '' ) {
+                         $text.= '</' . $tag . '>';
+                    }
+               }
           }
 
           return $text;
@@ -404,6 +403,7 @@ class FeaturedPageWidget extends WP_Widget {
       */
      function defaults($instance) {
           $defaults = array(
+               'template' => 'standard',
                'title' => '',
                'linktitle' => $this->options['link_title'],
                /* Page Settings */
@@ -415,6 +415,7 @@ class FeaturedPageWidget extends WP_Widget {
                'length' => $this->options['length'],
                'target' => $this->options['target'],
                'linkalign' => $this->options['link_align'],
+               'linktext' => $this->options['link_text'],
                /* Image Settings */
                'imagealign' => $this->options['image_align'],
                'thumbnail_size' => $this->options['thumbnail_size'],
@@ -432,7 +433,7 @@ class FeaturedPageWidget extends WP_Widget {
      function form($instance) {
           global $_wp_additional_image_sizes;
           $instance = $this->defaults($instance);
-          include( $this->pluginPath . '/includes/widget-form.php');
+          include( $this->pluginPath . 'includes/widget-form.php');
      }
 
      /**
@@ -457,6 +458,69 @@ class FeaturedPageWidget extends WP_Widget {
           }
 
           return $output;
+     }
+
+     /**
+      * Return a list of template files in the theme folder and plugin folder.
+      *
+      * @return array
+      */
+     function get_widget_templates() {
+          $templates = array();
+
+          if ( $handle = @opendir(get_stylesheet_directory() . '/featured-page-widget') ) {
+               while (false !== ($file = readdir($handle))) {
+                    if ( $file != "." && $file != ".." && preg_match('/.php/', $file) ) {
+                         $file = str_replace('.php', '', $file);
+                         $name = str_replace('-', ' ', $file);
+                         $templates[$file] = ucfirst($name) . "<br>";
+                    }
+               }
+
+               closedir($handle);
+          }
+
+          if ( $handle = opendir($this->pluginPath . '/templates') ) {
+               while (false !== ($file = readdir($handle))) {
+                    if ( $file != "." && $file != ".." && $file != 'list.php' && preg_match('/.php/', $file) ) {
+                         $file = str_replace('.php', '', $file);
+                         $name = str_replace('-', ' ', $file);
+                         $templates[$file] = ucfirst($name) . "<br>";
+                    }
+               }
+
+               closedir($handle);
+          }
+
+          return $templates;
+     }
+
+     /**
+      * Retrieve a template file from either the theme or the plugin directory.
+      *
+      * @param <string> $template    The name of the template.
+      * @return <string>             The full path to the template file.
+      */
+     function get_template($template = NULL, $ext = '.php', $type = 'path') {
+          if ( $template == NULL ) {
+               return false;
+          }
+
+          $themeFile = get_stylesheet_directory() . '/featured-page-widget/' . $template . $ext;
+
+          if ( file_exists($themeFile) ) {
+               if ( $type == 'url' ) {
+                    $file = get_bloginfo('template_url') . '/featured-page-widget/' . $template . $ext;
+               } else {
+                    $file = get_stylesheet_directory() . '/featured-page-widget/' . $template . $ext;
+               }
+          } elseif ( $type == 'url' ) {
+               $file = $this->templatesURL . $template . $ext;
+          } else {
+               $file = $this->templatesPath . $template . $ext;
+          }
+
+          return $file;
      }
 
      /**
@@ -529,6 +593,23 @@ class FeaturedPageWidget extends WP_Widget {
           } else {
                print $data;
           }
+     }
+
+     /**
+      * Displayes any data sent in textareas.
+      *
+      * @param <type> $input
+      */
+     function debug($input) {
+          $contents = func_get_args();
+
+          foreach ( $contents as $content ) {
+               echo '<textarea style="width:49%; height:250px; float: left;">';
+               print_r($content);
+               echo '</textarea>';
+          }
+
+          echo '<div style="clear: both"></div>';
      }
 
 }
