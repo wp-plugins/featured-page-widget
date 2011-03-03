@@ -4,10 +4,9 @@
   Plugin Name: Featured Page Widget
   Plugin URI: http://plugins.grandslambert.com/plugins/featured-page-widget.html
   Description: Feature pages on your sidebar including an excerpt and either a text or image link to the page.
-  Version: 2.0
+  Version: 2.1
   Author: grandslambert
   Author URI: http://grandslambert.com/
-
 
  * *************************************************************************
 
@@ -35,7 +34,7 @@
 class FeaturedPageWidget extends WP_Widget {
      /* Plugin Variables */
 
-     var $version = '2.0';
+     var $version = '2.1';
      var $make_link = false;
      var $options = array();
 
@@ -49,7 +48,8 @@ class FeaturedPageWidget extends WP_Widget {
       */
      function FeaturedPageWidget() {
           /* Load the language support */
-          load_plugin_textdomain('featured-page-widget', false, dirname(plugin_basename(__FILE__)) . '/lang');
+          $langDir = dirname(plugin_basename(__FILE__)) . '/lang';
+          load_plugin_textdomain('featured-page-widget', false, $langDir, $langDir);
 
           /* Plugin Details */
           $this->pluginName = __('Featured Page Widget', 'featured-page-widget');
@@ -86,8 +86,8 @@ class FeaturedPageWidget extends WP_Widget {
           add_shortcode('featured_pages', array(&$this, 'featured_pages_shortcode'));
 
           /* Add Image Sizes */
-          add_image_size('featured-page-image-small', $this->options['small-image'][0], $this->options['small-image'][1], $this->options['hard-crop']);
-          add_image_size('featured-page-image-full', $this->options['full-image'][0], $this->options['full-image'][1], $this->options['hard-crop']);
+          add_image_size('featured-page-image-small', $this->options->small_image[0], $this->options->small_image[1], $this->options->hard_crop);
+          add_image_size('featured-page-image-full', $this->options->full_image[0], $this->options->full_image[1], $this->options->hard_crop);
      }
 
      /**
@@ -103,24 +103,35 @@ class FeaturedPageWidget extends WP_Widget {
                'target' => 'None',
                'link_align' => 'center',
                'image_align' => 'right',
-               'allowed-tags' => 'p',
+               'allowed_tags' => 'p',
                'post_types' => array('page'),
-               'allowed-tags-formatted' => '',
+               'allowed_tags_formatted' => '',
                'hide_widget' => false,
                /* Added in version 1.4 */
                'thumbnail_size' => 'thumbnail',
-               'small-image' => array(100, 75),
-               'full-image' => array(200, 125),
-               'hard-crop' => isset($options['hard-crop']) ? $options['hard-crop'] : true,
+               'small_image' => array(100, 75),
+               'full_image' => array(200, 125),
+               'hard_crop' => isset($options['hard_crop']) ? $options['hard_crop'] : true,
           );
-          
+
           $this->options = wp_parse_args($options, $defaults);
 
-          /* Build the list of allowed tags in excerpts */
-          $tags = explode(',', $this->options['allowed-tags']);
-          foreach ( $tags as $tag ) {
-               $this->options['allowed-tags-formatted'].= '<' . $tag . '>';
+          /* Convert pre-2.1 settings */
+          if ( isset($this->options['allowed-tags']) ) {
+               $this->options['allowed_tags'] = $this->options['allowed-tags'];
+               $this->options['allowed_tags_formatted'] = $this->options['allowed_tags_formatted'];
+               $this->options['small_image'] = $this->options['small-image'];
+               $this->options['full_image'] = $this->options['full-image'];
+               $this->options['hard_crop'] = $this->options['hard-crop'];
           }
+
+          /* Build the list of allowed tags in excerpts */
+          $tags = explode(',', $this->options['allowed_tags']);
+          foreach ( $tags as $tag ) {
+               $this->options['allowed_tags_formatted'].= '<' . $tag . '>';
+          }
+
+          $this->options = (object) $this->options;
      }
 
      /**
@@ -232,21 +243,21 @@ class FeaturedPageWidget extends WP_Widget {
           global $post, $this_instance;
           $old_post = $post;
 
-          
+
           $defaults = array(
                'template' => 'standard',
                'pages' => get_option('sticky_posts'),
                'items' => 5,
-               'length' => $this->options['length'],
+               'length' => $this->options->length,
                'orderby' => 'title',
                'order' => 'ASC',
-               'post_types' => $this->options['post_types'],
+               'post_types' => $this->options->post_types,
                'ignore_sticky' => true,
                'useimageas' => false,
-               'thumbnail_size' => $this->options['thumbnail_size'],
-               'imagealign' => $this->options['image_align'],
-               'linktext' => $this->options['link_text'],
-               'linkalign' => $this->options['link_align']
+               'thumbnail_size' => $this->options->thumbnail_size,
+               'imagealign' => $this->options->image_align,
+               'linktext' => $this->options->link_text,
+               'linkalign' => $this->options->link_align
           );
 
           $instance = $this_instance = $atts = wp_parse_args($atts, $defaults);
@@ -284,6 +295,10 @@ class FeaturedPageWidget extends WP_Widget {
           global $post, $_wp_additional_image_sizes, $this_instance;
 
           $old_post = $post;
+          if ( !isset($instance['linktitle']) ) {
+               $instance['linktitle'] = false;
+          }
+
           $this_instance = $instance = $this->defaults($instance);
 
           if ( (isset($instance['error']) && $instance['error']) or !isset($instance['page']) ) {
@@ -300,13 +315,27 @@ class FeaturedPageWidget extends WP_Widget {
           }
 
           /* Get the list of pages */
-          $args = array(
-               'post__in' => $instance['page'],
-               'posts_per_page' => $instance['items'],
-               'orderby' => 'rand',
-               'post_type' => $this->options['post_types'],
-               'ignore_sticky_posts' => true,
-          );
+          if ( $instance['category'] != -1 ) {
+               $pages = array_flip($this->options->post_types);
+               unset($pages['page']);
+               $this->options->post_types = array_flip($pages);
+               $args = array(
+                    'category__in' => $instance['category'],
+                    //'post__not_in' => array($post->ID),
+                    'posts_per_page' => $instance['items'],
+                    'orderby' => 'rand',
+                    'post_type' => $this->options->post_types,
+                    'ignore_sticky_posts' => true,
+               );
+          } else {
+               $args = array(
+                    'post__in' => $instance['page'],
+                    'posts_per_page' => $instance['items'],
+                    'orderby' => 'rand',
+                    'post_type' => $this->options->post_types,
+                    'ignore_sticky_posts' => true,
+               );
+          }
 
           $featured = new WP_Query($args);
 
@@ -360,10 +389,10 @@ class FeaturedPageWidget extends WP_Widget {
      function trim_excerpt($text, $length = NULL, $notags = false) {
           global $post;
 
-          $length = ( NULL === $length) ? $this->options['length'] : $length;
+          $length = ( NULL === $length) ? $this->options->length : $length;
           $notags = ( NULL === $notags) ? false : $notags;
 
-          $allowed_tags = (false === $notags) ? $this->options['allowed-tags-formatted'] : '';
+          $allowed_tags = (false === $notags) ? $this->options->allowed_tags_formatted : '';
           $text = apply_filters('the_content', $text);
           $text = str_replace(']]>', ']]&gt;', $text);
           $text = strip_tags($text, $allowed_tags);
@@ -377,7 +406,7 @@ class FeaturedPageWidget extends WP_Widget {
 
           /* Close any open tags. */
           if ( !$notags ) {
-               $tags = explode(',', $this->options['allowed-tags']);
+               $tags = explode(',', $this->options->allowed_tags);
                foreach ( $tags as $tag ) {
                     if ( $tag != '' ) {
                          $text.= '</' . $tag . '>';
@@ -405,20 +434,21 @@ class FeaturedPageWidget extends WP_Widget {
           $defaults = array(
                'template' => 'standard',
                'title' => '',
-               'linktitle' => $this->options['link_title'],
+               'linktitle' => $this->options->link_title,
                /* Page Settings */
+               'category' => 14,
                'page' => array(),
                'items' => 1,
                'add_title' => false,
-               'hidewidget' => $this->options['hide_widget'],
+               'hidewidget' => $this->options->hide_widget,
                /* Link Settings */
-               'length' => $this->options['length'],
-               'target' => $this->options['target'],
-               'linkalign' => $this->options['link_align'],
-               'linktext' => $this->options['link_text'],
+               'length' => $this->options->length,
+               'target' => $this->options->target,
+               'linkalign' => $this->options->link_align,
+               'linktext' => $this->options->link_text,
                /* Image Settings */
-               'imagealign' => $this->options['image_align'],
-               'thumbnail_size' => $this->options['thumbnail_size'],
+               'imagealign' => $this->options->image_align,
+               'thumbnail_size' => $this->options->thumbnail_size,
                'useimageas' => 'none'
           );
 
@@ -432,7 +462,9 @@ class FeaturedPageWidget extends WP_Widget {
       */
      function form($instance) {
           global $_wp_additional_image_sizes;
-          $instance = $this->defaults($instance);
+          if ( count($instance) < 1 ) {
+               $instance = $this->defaults($instance);
+          }
           include( $this->pluginPath . 'includes/widget-form.php');
      }
 
@@ -445,7 +477,7 @@ class FeaturedPageWidget extends WP_Widget {
                $selected = array($selected);
           }
 
-          $pages = get_posts(array('post_type' => $this->options['post_types'], 'posts_per_page' => -1, 'showposts' => -1, 'orderby' => 'title', 'order' => 'asc'));
+          $pages = get_posts(array('post_type' => $this->options->post_types, 'posts_per_page' => -1, 'showposts' => -1, 'orderby' => 'title', 'order' => 'asc'));
 
           $output = '';
 

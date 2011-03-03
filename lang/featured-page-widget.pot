@@ -1,29 +1,23 @@
-# Translation of the WordPress plugin Featured Page Widget 2.0 by grandslambert.
-# Copyright (C) 2011 grandslambert
+# Copyright (C) 2010 Featured Page Widget
 # This file is distributed under the same license as the Featured Page Widget package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2011.
-#
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Featured Page Widget 2.0\n"
+"Project-Id-Version: Featured Page Widget 2.1\n"
 "Report-Msgid-Bugs-To: http://wordpress.org/tag/featured-page-widget\n"
-"POT-Creation-Date: 2011-02-25 16:08-0600\n"
-"PO-Revision-Date: 2011-MO-DA HO:MI+ZONE\n"
+"POT-Creation-Date: 2011-03-02 23:51:18+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2010-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
-"MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
-"Content-Transfer-Encoding: 8bit\n"
 
-#. #-#-#-#-#  featured-page-widget.pot (Featured Page Widget 2.0)  #-#-#-#-#
+#. #-#-#-#-#  featured-page-widget.pot (Featured Page Widget 2.1)  #-#-#-#-#
 #. Plugin Name of the plugin/theme
 #: featured-page-widget.php:55
 msgid "Featured Page Widget"
 msgstr ""
 
-#. translators: This is the description shown on the Widgets page.
 #: featured-page-widget.php:58
 msgid "Feature a page on your sidebar. By GrandSlambert."
 msgstr ""
@@ -32,73 +26,130 @@ msgstr ""
 msgid "Read More"
 msgstr ""
 
-#. translators: This is used in the title of page and should start with a blank space.
-#: featured-page-widget.php:170
+#: featured-page-widget.php:179
 msgid " Settings"
 msgstr ""
 
-#. translators: This is the link displayed on the Plugins page to the settings page for the plugin.
-#: featured-page-widget.php:193
+#: featured-page-widget.php:202
 msgid "Settings"
 msgstr ""
 
-#: includes/footer.php:18
-msgid "Credits"
+#: includes/settings.php:26
+msgid "Content Settings"
 msgstr ""
 
-#. translators: This is displayed in the credits. Parameters are plugin name, link to plugin page, link to support page.
-#: includes/footer.php:23
-#, php-format
-msgid ""
-"Thank you for trying the %1$s plugin - I hope you find it useful. For the "
-"latest updates on this plugin, vist the %2$s. If you have problems with this "
-"plugin, please use our %3$s or take a look at the %4$s"
+#: includes/settings.php:27
+msgid "Link Settings"
 msgstr ""
 
-#: includes/footer.php:25
-msgid "official site"
+#: includes/settings.php:28
+msgid "Image Settings"
 msgstr ""
 
-#: includes/footer.php:26
-msgid "Support Forum"
-msgstr ""
-
-#: includes/footer.php:27
-msgid "Documentation Page"
-msgstr ""
-
-#. translators: Displayed under the credits. Parameters are the copyright dates, link to author, link to license.
-#: includes/footer.php:33
-#, php-format
-msgid "This plugin is &copy; %1$s by %2$s and is released under the %3$s"
-msgstr ""
-
-#: includes/footer.php:36
-msgid "GNU General Public License"
-msgstr ""
-
-#: includes/footer.php:42
-msgid "Donate"
-msgstr ""
-
-#. translators: This is the text in the donate box. Parameter is replaced with link to the plugins page of the authors site.
-#: includes/footer.php:47
-#, php-format
-msgid ""
-"If you find this plugin useful, please consider supporting this and our "
-"other great %1$s."
-msgstr ""
-
-#: includes/footer.php:47
-msgid "plugins"
-msgstr ""
-
-#: includes/footer.php:49
-msgid "Donate a few bucks!"
-msgstr ""
-
-#: includes/settings/administration.php:19 includes/settings.php:29
+#: includes/settings.php:29 includes/settings/administration.php:19
 msgid "Administration"
+msgstr ""
+
+#: includes/settings.php:38
+msgid "Plugin Settings"
+msgstr ""
+
+#: includes/settings.php:41
+msgid "Featured Page Widget settings have been reset to defaults."
+msgstr ""
+
+#: includes/settings.php:54
+msgid "Save Settings"
+msgstr ""
+
+#: includes/settings/image.php:19
+msgid "Default Image Settings"
+msgstr ""
+
+#: includes/settings/image.php:24
+msgid "Default Image Alignment"
+msgstr ""
+
+#: includes/settings/image.php:26 includes/widget-form.php:111
+msgid "No Image Alignment"
+msgstr ""
+
+#: includes/settings/image.php:27 includes/settings/links.php:43
+#: includes/widget-form.php:88 includes/widget-form.php:112
+msgid "Align Left"
+msgstr ""
+
+#: includes/settings/image.php:28 includes/settings/links.php:44
+#: includes/widget-form.php:89
+msgid "Align Centered"
+msgstr ""
+
+#: includes/settings/image.php:29 includes/settings/links.php:45
+#: includes/widget-form.php:90 includes/widget-form.php:114
+msgid "Align Right"
+msgstr ""
+
+#: includes/settings/image.php:34
+msgid "Default Thumbnail Size"
+msgstr ""
+
+#: includes/settings/image.php:37 includes/widget-form.php:120
+msgid "No Thumbnail"
+msgstr ""
+
+#: includes/settings/image.php:38 includes/widget-form.php:121
+msgid "Thumbnail (150x150px)"
+msgstr ""
+
+#: includes/settings/image.php:39 includes/widget-form.php:122
+msgid "Medium (300x300px)"
+msgstr ""
+
+#: includes/settings/image.php:40 includes/widget-form.php:123
+msgid "Large (640x640px)"
+msgstr ""
+
+#: includes/settings/image.php:49
+msgid "Small image size"
+msgstr ""
+
+#: includes/settings/image.php:56
+msgid "Full image size"
+msgstr ""
+
+#: includes/settings/image.php:63
+msgid "Crop Method"
+msgstr ""
+
+#: includes/settings/image.php:65
+msgid "Hard - Maintain aspect"
+msgstr ""
+
+#: includes/settings/image.php:66
+msgid "Soft - Proportional resize"
+msgstr ""
+
+#: includes/settings/image.php:70
+msgid "Image Notice"
+msgstr ""
+
+#: includes/settings/image.php:74
+msgid ""
+"If you change the sizes of these images, you must run the %1$s command from "
+"%2$s by %3$s to create and register the images."
+msgstr ""
+
+#: includes/settings/image.php:75 includes/settings/image.php:76
+#: includes/settings/image.php:81
+msgid "Regenerate Thumbnails"
+msgstr ""
+
+#: includes/settings/image.php:80
+msgid ""
+"If you change the sizes of the images on this page, your existing images "
+"will not automatically be resized. I suggest using the %1$s plugin by %2$s "
+"which will recreate all the image sizes. This only needs to be done if you "
+"change these image sizes."
 msgstr ""
 
 #: includes/settings/administration.php:25
@@ -135,103 +186,11 @@ msgstr ""
 
 #: includes/settings/content.php:36
 msgid ""
-"If only one page is selected, otherwise a different random page is displayd"
+"If only one page is selected, otherwise a different random page is displayed"
 msgstr ""
 
 #: includes/settings/content.php:40
 msgid "Post Types to Include"
-msgstr ""
-
-#: includes/settings/image.php:19
-msgid "Default Image Settings"
-msgstr ""
-
-#: includes/settings/image.php:24
-msgid "Default Image Alignment"
-msgstr ""
-
-#: includes/settings/image.php:26 includes/widget-form.php:106
-msgid "No Image Alignment"
-msgstr ""
-
-#: includes/settings/image.php:27 includes/settings/links.php:43
-#: includes/widget-form.php:83 includes/widget-form.php:107
-msgid "Align Left"
-msgstr ""
-
-#: includes/settings/image.php:28 includes/settings/links.php:44
-#: includes/widget-form.php:84
-msgid "Align Centered"
-msgstr ""
-
-#: includes/settings/image.php:29 includes/settings/links.php:45
-#: includes/widget-form.php:85 includes/widget-form.php:109
-msgid "Align Right"
-msgstr ""
-
-#: includes/settings/image.php:34
-msgid "Default Thumbnail Size"
-msgstr ""
-
-#: includes/settings/image.php:37 includes/widget-form.php:115
-msgid "No Thumbnail"
-msgstr ""
-
-#: includes/settings/image.php:38 includes/widget-form.php:116
-msgid "Thumbnail (150x150px)"
-msgstr ""
-
-#: includes/settings/image.php:39 includes/widget-form.php:117
-msgid "Medium (300x300px)"
-msgstr ""
-
-#: includes/settings/image.php:40 includes/widget-form.php:118
-msgid "Large (640x640px)"
-msgstr ""
-
-#: includes/settings/image.php:49
-msgid "Small image size"
-msgstr ""
-
-#: includes/settings/image.php:56
-msgid "Full image size"
-msgstr ""
-
-#: includes/settings/image.php:63
-msgid "Crop Method"
-msgstr ""
-
-#: includes/settings/image.php:65
-msgid "Hard - Maintain aspect"
-msgstr ""
-
-#: includes/settings/image.php:66
-msgid "Soft - Proportional resize"
-msgstr ""
-
-#: includes/settings/image.php:70
-msgid "Image Notice"
-msgstr ""
-
-#: includes/settings/image.php:74
-#, php-format
-msgid ""
-"If you change the sizes of these images, you must run the %1$s command from "
-"%2$s by %3$s to create and register the images."
-msgstr ""
-
-#: includes/settings/image.php:75 includes/settings/image.php:76
-#: includes/settings/image.php:81
-msgid "Regenerate Thumbnails"
-msgstr ""
-
-#: includes/settings/image.php:80
-#, php-format
-msgid ""
-"If you change the sizes of the images on this page, your existing images "
-"will not automatically be resized. I suggest using the %1$s plugin by %2$s "
-"which will recreate all the image sizes. This only needs to be done if you "
-"change these image sizes."
 msgstr ""
 
 #: includes/settings/links.php:19
@@ -254,11 +213,11 @@ msgstr ""
 msgid "No Link target"
 msgstr ""
 
-#: includes/settings/links.php:35 includes/widget-form.php:73
+#: includes/settings/links.php:35 includes/widget-form.php:78
 msgid "New Window"
 msgstr ""
 
-#: includes/settings/links.php:36 includes/widget-form.php:74
+#: includes/settings/links.php:36 includes/widget-form.php:79
 msgid "Top Window"
 msgstr ""
 
@@ -266,32 +225,100 @@ msgstr ""
 msgid "Default Link Alignment"
 msgstr ""
 
-#: includes/settings/links.php:42 includes/widget-form.php:82
+#: includes/settings/links.php:42 includes/widget-form.php:87
 msgid "No Link Alignment"
 msgstr ""
 
-#: includes/settings.php:26
-msgid "Content Settings"
+#: includes/widget-form.php:18
+msgid "Widget Title (Leave blank to use page title)"
 msgstr ""
 
-#: includes/settings.php:27
-msgid "Link Settings"
+#: includes/widget-form.php:21
+msgid "Link title to Entry"
 msgstr ""
 
-#: includes/settings.php:28
-msgid "Image Settings"
+#: includes/widget-form.php:23
+msgid "Contents"
 msgstr ""
 
-#: includes/settings.php:38
-msgid "Plugin Settings"
+#: includes/widget-form.php:26
+msgid "Feature posts in"
 msgstr ""
 
-#: includes/settings.php:41
-msgid "Featured Page Widget settings have been reset to defaults."
+#: includes/widget-form.php:27
+msgid "Choose individual pages below"
 msgstr ""
 
-#: includes/settings.php:54
-msgid "Save Settings"
+#: includes/widget-form.php:32
+msgid "Featured Page(s) (CTRL-Click to select multiple)"
+msgstr ""
+
+#: includes/widget-form.php:40
+msgid "Template"
+msgstr ""
+
+#: includes/widget-form.php:50
+msgid "How many to display per page"
+msgstr ""
+
+#: includes/widget-form.php:53
+msgid "Show All"
+msgstr ""
+
+#: includes/widget-form.php:62
+msgid "Do not include current post in content."
+msgstr ""
+
+#: includes/widget-form.php:67
+msgid "Excerpt Length:"
+msgstr ""
+
+#: includes/widget-form.php:71
+msgid "Page Links"
+msgstr ""
+
+#: includes/widget-form.php:74
+msgid "Link Target:"
+msgstr ""
+
+#: includes/widget-form.php:77
+msgid "No Link Target"
+msgstr ""
+
+#: includes/widget-form.php:84
+msgid "Link Alignment:"
+msgstr ""
+
+#: includes/widget-form.php:93
+msgid "Featured Image Usage"
+msgstr ""
+
+#: includes/widget-form.php:98
+msgid "Use thumbnail as"
+msgstr ""
+
+#: includes/widget-form.php:101
+msgid "Ignore post thumbnail"
+msgstr ""
+
+#: includes/widget-form.php:102
+msgid "Page Image"
+msgstr ""
+
+#: includes/widget-form.php:103
+msgid "Read More Link"
+msgstr ""
+
+#: includes/widget-form.php:109
+msgid "Image Alignment:"
+msgstr ""
+
+#: includes/widget-form.php:113
+msgid "Align Center"
+msgstr ""
+
+#: includes/widget-form.php:118
+msgid "Image Size:"
 msgstr ""
 
 #: includes/sidebar.php:17
@@ -312,133 +339,90 @@ msgstr ""
 msgid "Usage"
 msgstr ""
 
-#. translators: This is displayed in the "Usage" on the settings page. The parameter will be replaced with a link to the Appearance > Widgets page.
-#: includes/sidebar.php:28
-#, php-format
+#: includes/sidebar.php:29
 msgid ""
-"<p>After setting the defaults, you can add widgets on the %1$s screen. Each "
-"of the defaults to the left can be overridden for each individual instance. "
-"You can also customize how the widget text appears using the following "
-"custom fields on the page.</p>"
+"After setting the defaults, you can add widgets on the %1$s screen. Each of "
+"the defaults to the left can be overridden for each individual instance. You "
+"can also customize how the widget text appears using the following custom "
+"fields on the page."
 msgstr ""
 
-#: includes/sidebar.php:28
+#: includes/sidebar.php:29
 msgid "Appearance &raquo; Widgets"
-msgstr ""
-
-#: includes/sidebar.php:31
-msgid ""
-"<strong>featured-text</strong>: The plugin will use the text in this custom "
-"field in place of an excerpt from the page. Full HTML is supported in this "
-"field."
-msgstr ""
-
-#: includes/sidebar.php:32
-msgid ""
-"<strong>featured-image</strong>: Add an image to the widget using the "
-"alignment set in the widget settings."
 msgstr ""
 
 #: includes/sidebar.php:33
 msgid ""
-"<strong>featured-link</strong>: A full URL to an image to use in place of a "
-"text link."
+"The plugin will use the text in this custom field in place of an excerpt "
+"from the page. Full HTML is supported in this field."
 msgstr ""
 
-#: includes/sidebar.php:39
+#: includes/sidebar.php:34
+msgid ""
+"Add an image to the widget using the alignment set in the widget settings."
+msgstr ""
+
+#: includes/sidebar.php:35
+msgid "A full URL to an image to use in place of a text link."
+msgstr ""
+
+#: includes/sidebar.php:41
 msgid "Recent Contributors"
 msgstr ""
 
-#: includes/sidebar.php:42
+#: includes/sidebar.php:44
 msgid ""
 "GrandSlambert would like to thank these wonderful contributors to this "
 "plugin!"
 msgstr ""
 
-#: includes/widget-form.php:19
-#, php-format
-msgid "Widget Title: %1$s(Leave blank to use page title)%2$s"
+#: includes/footer.php:18
+msgid "Credits"
 msgstr ""
 
-#: includes/widget-form.php:22
-msgid "Link title to Entry"
+#: includes/footer.php:23
+msgid ""
+"Thank you for trying the %1$s plugin - I hope you find it useful. For the "
+"latest updates on this plugin, vist the %2$s. If you have problems with this "
+"plugin, please use our %3$s or take a look at the %4$s"
 msgstr ""
 
-#: includes/widget-form.php:24
-msgid "Contents"
+#: includes/footer.php:25
+msgid "official site"
 msgstr ""
 
-#: includes/widget-form.php:27
-#, php-format
-msgid "Featured Page(s) %1$s(CTRL-Click to select multiple)%2$s:"
+#: includes/footer.php:26
+msgid "Support Forum"
 msgstr ""
 
-#: includes/widget-form.php:35
-msgid "Template"
+#: includes/footer.php:27
+msgid "Documentation Page"
 msgstr ""
 
-#: includes/widget-form.php:45
-msgid "How many to display per page"
+#: includes/footer.php:33
+msgid "This plugin is &copy; %1$s by %2$s and is released under the %3$s"
 msgstr ""
 
-#: includes/widget-form.php:48
-msgid "Show All"
+#: includes/footer.php:36
+msgid "GNU General Public License"
 msgstr ""
 
-#: includes/widget-form.php:57
-msgid "Do not include current post in content."
+#: includes/footer.php:42
+msgid "Donate"
 msgstr ""
 
-#: includes/widget-form.php:62
-msgid "Excerpt Length:"
+#: includes/footer.php:47
+msgid ""
+"If you find this plugin useful, please consider supporting this and our "
+"other great %1$s."
 msgstr ""
 
-#: includes/widget-form.php:66
-msgid "Page Links"
+#: includes/footer.php:47
+msgid "plugins"
 msgstr ""
 
-#: includes/widget-form.php:69
-msgid "Link Target:"
-msgstr ""
-
-#: includes/widget-form.php:72
-msgid "No Link Target"
-msgstr ""
-
-#: includes/widget-form.php:79
-msgid "Link Alignment:"
-msgstr ""
-
-#: includes/widget-form.php:88
-msgid "Featured Image Usage"
-msgstr ""
-
-#: includes/widget-form.php:93
-msgid "Use thumbnail as"
-msgstr ""
-
-#: includes/widget-form.php:96
-msgid "Ignore post thumbnail"
-msgstr ""
-
-#: includes/widget-form.php:97
-msgid "Page Image"
-msgstr ""
-
-#: includes/widget-form.php:98
-msgid "Read More Link"
-msgstr ""
-
-#: includes/widget-form.php:104
-msgid "Image Alignment:"
-msgstr ""
-
-#: includes/widget-form.php:108
-msgid "Align Center"
-msgstr ""
-
-#: includes/widget-form.php:113
-msgid "Image Size:"
+#: includes/footer.php:49
+msgid "Donate a few bucks!"
 msgstr ""
 
 #. Plugin URI of the plugin/theme

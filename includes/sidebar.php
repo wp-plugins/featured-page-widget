@@ -23,23 +23,25 @@ if ( preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF']) ) {
 <div class="postbox">
      <h3 class="handl" style="margin:0; padding:3px;cursor:default;"><?php _e('Usage', 'featured-page-widget'); ?></h3>
      <div style="padding:5px;">
-          <?php
-          /* translators: This is displayed in the "Usage" on the settings page. The parameter will be replaced with a link to the Appearance > Widgets page. */
-          printf(__('<p>After setting the defaults, you can add widgets on the %1$s screen. Each of the defaults to the left can be overridden for each individual instance. You can also customize how the widget text appears using the following custom fields on the page.</p>', 'featured-page-widget'), '<a href="' . get_option('siteurl') . '/wp-admin/widgets.php">' . __('Appearance &raquo; Widgets', 'featured-page-widget') . '</a>');
-          ?>
+          <p>
+               <?php
+               /* translators: This is displayed in the "Usage" on the settings page. The parameter will be replaced with a link to the Appearance > Widgets page. */
+               printf(__('After setting the defaults, you can add widgets on the %1$s screen. Each of the defaults to the left can be overridden for each individual instance. You can also customize how the widget text appears using the following custom fields on the page.', 'featured-page-widget'), '<a href="' . get_option('siteurl') . '/wp-admin/widgets.php">' . __('Appearance &raquo; Widgets', 'featured-page-widget') . '</a>');
+               ?>
+          </p>
           <ul>
-               <li><?php _e('<strong>featured-text</strong>: The plugin will use the text in this custom field in place of an excerpt from the page. Full HTML is supported in this field.', 'featured-page-widget'); ?></li>
-               <li><?php _e('<strong>featured-image</strong>: Add an image to the widget using the alignment set in the widget settings.', 'featured-page-widget'); ?></li>
-               <li><?php _e('<strong>featured-link</strong>: A full URL to an image to use in place of a text link.', 'featured-page-widget'); ?></li>
+               <li><strong>featured-text</strong>: <?php _e('The plugin will use the text in this custom field in place of an excerpt from the page. Full HTML is supported in this field.', 'featured-page-widget'); ?></li>
+               <li><strong>featured-image</strong>: <?php _e('Add an image to the widget using the alignment set in the widget settings.', 'featured-page-widget'); ?></li>
+               <li><strong>featured-link</strong>: <?php _e('A full URL to an image to use in place of a text link.', 'featured-page-widget'); ?></li>
           </ul>
      </div>
 </div>
 <div class="postbox">
      <h3 class="handl" style="margin:0; padding:3px;cursor:default;">
           <?php _e('Recent Contributors', 'featured-page-widget'); ?>
-     </h3>
-     <div style="padding:5px;">
-          <p><?php _e('GrandSlambert would like to thank these wonderful contributors to this plugin!', 'featured-page-widget'); ?></p>
+          </h3>
+          <div style="padding:5px;">
+               <p><?php _e('GrandSlambert would like to thank these wonderful contributors to this plugin!', 'featured-page-widget'); ?></p>
           <?php $this->contributor_list(); ?>
      </div>
 </div>

@@ -14,6 +14,7 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 
 = Features =
 
+* Feature posts for a selected category, or by selecting individual pages.
 * Added support for custom templates - includes 4 different templates.
 * Added support for custom post types.
 * Added support for post thumbnails.
@@ -30,6 +31,13 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 * Choose alignment of link text or image in widget.
 * Add an image using the "featured-image" custom field and set the alignment in the widget.
 
+= Languages =
+
+This plugin includes the following translations. Translations listed with no translator were created by the plugin developer using Google Translate. If you can improve these, you can get your name listed here!
+
+* Spanish
+* French
+
 == Installation ==
 
 1. Upload `featured-page-widget` folder to the `/wp-content/plugins/` directory
@@ -38,6 +46,12 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 4. Add widgets to your sidebar.
 
 == Changelog ==
+
+= 2.1 - March 2nd, 2011 =
+
+* Fixed an issue where the option to link the title to the post could not be turned off.
+* Added support to select a category for the featured posts OR the old way of selecting individual posts (Category selection only allows one category. Patch submitted to WordPress to allow multiple selection.)
+* Added Spanish and French translation files.
 
 = 2.0 - February 25th, 2011 =
 
@@ -108,6 +122,9 @@ Allows you to feature pages on your sidebar using an excerpt of the page and a t
 
 == Upgrade Notice ==
 
+= 2.1 =
+Fixed some laugnage stuff and added a new feature.
+
 = 2.0 =
 No requirement to update - but some new features make the plugin more verstaile.
 
@@ -149,3 +166,5 @@ As of version 0.7 you can now select multiple pages on the widget form and the w
 http://support.grandslambert.com/forum/featured-page-widget
 
 == Screenshots ==
+
+* Sample widget output.
