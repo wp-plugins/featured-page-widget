@@ -24,7 +24,7 @@ if ( preg_match('#' . basename(__FILE__) . '#', $_SERVER['PHP_SELF']) ) {
 
 <p>
      <label for="<?php print $this->get_field_id('category'); ?>"><?php _e('Feature posts in', 'featured-page-widget'); ?></label>
-     <?php wp_dropdown_categories(array('name' => $this->get_field_name('category') . '[]', 'id' => $this->get_field_id('category'), 'show_option_none' => __('Choose individual pages below', 'featured-page-widget'), 'selected' => $instance['category'], 'multiple' => true)); ?>
+     <?php wp_dropdown_categories(array('name' => $this->get_field_name('category'), 'id' => $this->get_field_id('category'), 'show_option_none' => __('Choose individual pages below', 'featured-page-widget'), 'selected' => $instance['category'] )); ?>
 </p>
 
 <p>

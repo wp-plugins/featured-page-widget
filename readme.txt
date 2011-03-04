@@ -47,6 +47,10 @@ This plugin includes the following translations. Translations listed with no tra
 
 == Changelog ==
 
+= 2.2 - March 3rd, 2011 =
+
+* Fixed an error in the widget form that prevented featuring selected pages.
+
 = 2.1 - March 2nd, 2011 =
 
 * Fixed an issue where the option to link the title to the post could not be turned off.
@@ -121,6 +125,9 @@ This plugin includes the following translations. Translations listed with no tra
 * First release
 
 == Upgrade Notice ==
+
+= 2.2 =
+If using widget to featured selected pages, you need to update and then edit your widgets.
 
 = 2.1 =
 Fixed some laugnage stuff and added a new feature.

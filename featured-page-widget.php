@@ -4,7 +4,7 @@
   Plugin Name: Featured Page Widget
   Plugin URI: http://plugins.grandslambert.com/plugins/featured-page-widget.html
   Description: Feature pages on your sidebar including an excerpt and either a text or image link to the page.
-  Version: 2.1
+  Version: 2.2
   Author: grandslambert
   Author URI: http://grandslambert.com/
 
@@ -34,7 +34,7 @@
 class FeaturedPageWidget extends WP_Widget {
      /* Plugin Variables */
 
-     var $version = '2.1';
+     var $version = '2.2';
      var $make_link = false;
      var $options = array();
 
